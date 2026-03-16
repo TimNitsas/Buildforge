@@ -2,6 +2,7 @@
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
     <File Path=".github/workflows/main.yml" />
+    <File Path="dotnet-tools.json" />
   </Folder>
   <Project Path="Buildforge.App/Buildforge.App.csproj" />
   <Project Path="Buildforge.Client/Buildforge.Client.csproj" Id="54de2179-63bc-4353-ae9a-c621aaecd149" />
