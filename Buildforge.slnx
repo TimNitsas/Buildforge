@@ -4,4 +4,5 @@
     <File Path=".github/workflows/main.yml" />
   </Folder>
   <Project Path="Buildforge.App/Buildforge.App.csproj" />
+  <Project Path="Buildforge.Service/Buildforge.Service.csproj" Id="663fc33f-5d3b-4b6f-96f8-c1bfbf8920f8" />
 </Solution>
