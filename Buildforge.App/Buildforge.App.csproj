@@ -12,4 +12,8 @@
 	<ItemGroup>
 		<PackageReference Include="Velopack" Version="0.0.1298" />
 	</ItemGroup>
+	<ItemGroup>
+		<ApplicationDefinition Remove="App.xaml"/>
+		<Page Include="App.xaml"/>
+	</ItemGroup>
 </Project>
