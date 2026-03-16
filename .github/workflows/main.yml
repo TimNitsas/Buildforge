@@ -25,4 +25,4 @@ jobs:
           dotnet tool install -g vpk
           vpk [win] download github --repoUrl https://github.com/${{ github.repository }} --channel stable
           vpk [win] pack -u Buildforge -v ${{ steps.get-version.outputs.version }} -p publish --channel stable --mainExe Buildforge.App.exe
-          vpk [win] upload github --repoUrl https://github.com/${{ github.repository }} --publish --channel stable --releaseName "Buildforge ${{ steps.get-version.outputs.version }}" --tag v${{ steps.get-version.outputs.version }}
+          vpk [win] upload github --repoUrl https://github.com/${{ github.repository }} --publish --channel stable --releaseName "Buildforge ${{ steps.get-version.outputs.version }}" --tag v${{ steps.get-version.outputs.version }} --token ${{ secrets.GITHUB_TOKEN }}
