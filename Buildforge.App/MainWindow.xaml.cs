@@ -1,4 +1,4 @@
-﻿using System.Windows;
+﻿using Buildforge.App.ViewModel;
 
 namespace Buildforge.App;
 

@@ -1,5 +1,4 @@
-﻿using System.Windows;
-using Velopack;
+﻿using Velopack;
 
 namespace Buildforge.App;
 
