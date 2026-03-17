@@ -1,0 +1,24 @@
+{
+  "runtime": "Net100",
+  "documentGenerator": {
+    "fromDocument": {
+      "url": "../Buildforge.Service/Buildforge.Service.json",
+    }
+  },
+  "codeGenerators": {
+    "openApiToCSharpClient": {
+      "className": "BuildforgeClient",
+      "namespace": "Buildforge.Client.V1",
+      "generateClientInterfaces": true,
+      "generateOptionalParameters": true,
+      "useBaseUrl": true,
+      "injectHttpClient": true,
+      "httpClientType": "System.Net.Http.HttpClient",
+      "generateClientClasses": true,
+      "generateDtoTypes": true,
+      "output": "V1/Client.cs",
+      "generateNullableReferenceTypes": true,
+      "targetFramework": "net10.0"
+    }
+  }
+}
