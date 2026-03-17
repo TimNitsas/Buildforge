@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace Buildforge.Service.Controller.Build.V1;
 
@@ -7,8 +8,13 @@ namespace Buildforge.Service.Controller.Build.V1;
 [ApiExplorerSettings(GroupName = "v1")]
 public class BuildController : ControllerBase
 {
+    public class GetBuildQueryParameters
+    {
+        public uint Skip { get; set; }
+    }
+
     [HttpGet()]
-    public ActionResult<Build> GetBuilds()
+    public ActionResult<Build> GetBuilds([FromQuery] GetBuildQueryParameters query)
     {
         return NoContent();
     }

@@ -29,6 +29,20 @@
         "tags": [
           "Build"
         ],
+        "parameters": [
+          {
+            "name": "Skip",
+            "in": "query",
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "uint32"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
