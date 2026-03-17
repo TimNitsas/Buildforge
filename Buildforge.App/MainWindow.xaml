@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Buildforge.App"
         xmlns:vm="clr-namespace:Buildforge.App.ViewModel"
+        xmlns:v="clr-namespace:Buildforge.App.View"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance Type=vm:MainViewModel, IsDesignTimeCreatable=True}"
         Title="MainWindow"
@@ -16,6 +17,6 @@
                 <TextBlock Text="{Binding Version, StringFormat={}Version {0}}"/>
             </StatusBarItem>
         </StatusBar>
-        <Grid/>
+        <v:BuildView />
     </DockPanel>
 </Window>
