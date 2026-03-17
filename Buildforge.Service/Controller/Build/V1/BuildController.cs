@@ -14,10 +14,13 @@ public class BuildController : ControllerBase
     }
 
     [HttpGet()]
-    public async IAsyncEnumerable<Build> GetBuilds([FromQuery] GetBuildQueryParameters query)
+    public async Task<BuildResult> GetBuild([FromQuery] GetBuildQueryParameters query)
     {
         await Task.Yield();
 
-        yield break;
+        return new BuildResult()
+        {
+            Builds = []
+        };
     }
 }
