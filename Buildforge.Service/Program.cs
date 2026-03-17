@@ -20,8 +20,6 @@ public class Program
 
         app.MapScalarApiReference();
 
-        app.MapGet("/", () => "Hello World!");
-
         app.Run();
     }
 }
