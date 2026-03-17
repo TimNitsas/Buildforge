@@ -10,7 +10,11 @@ public class Program
 
         builder.Services.AddOpenApi();
 
+        builder.Services.AddControllers();
+
         var app = builder.Build();
+
+        app.MapControllers();
 
         app.MapOpenApi();
 
