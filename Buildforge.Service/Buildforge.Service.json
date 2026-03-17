@@ -49,17 +49,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/Build"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Build"
+                  }
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Build"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Build"
+                  }
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Build"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Build"
+                  }
                 }
               }
             }
