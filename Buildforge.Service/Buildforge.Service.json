@@ -49,26 +49,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Build"
-                  }
+                  "$ref": "#/components/schemas/BuildResult"
                 }
               },
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Build"
-                  }
+                  "$ref": "#/components/schemas/BuildResult"
                 }
               },
               "text/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Build"
-                  }
+                  "$ref": "#/components/schemas/BuildResult"
                 }
               }
             }
@@ -87,6 +78,20 @@
         "properties": {
           "name": {
             "type": "string"
+          }
+        }
+      },
+      "BuildResult": {
+        "required": [
+          "builds"
+        ],
+        "type": "object",
+        "properties": {
+          "builds": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Build"
+            }
           }
         }
       }
