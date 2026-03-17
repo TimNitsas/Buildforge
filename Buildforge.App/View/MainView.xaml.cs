@@ -3,9 +3,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Buildforge.App;
 
-public partial class MainWindow : Window
+public partial class MainView : Window
 {
-    public MainWindow()
+    public MainView()
     {
         InitializeComponent();
 

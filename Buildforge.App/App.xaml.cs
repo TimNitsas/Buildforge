@@ -17,6 +17,8 @@ public partial class App : Application
 
         services.AddSingleton<MainViewModel>();
 
+        services.AddSingleton<BuildViewModel>();
+
         Services = services.BuildServiceProvider();
     }
 
