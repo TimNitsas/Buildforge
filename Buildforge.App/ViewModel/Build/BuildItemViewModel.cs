@@ -1,4 +1,4 @@
-﻿using ApiSdk.Models;
+﻿using Buildforge.Client.V1;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Buildforge.App.ViewModel;
