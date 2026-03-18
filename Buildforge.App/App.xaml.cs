@@ -1,6 +1,7 @@
 ﻿using Buildforge.App.ViewModel;
 using Buildforge.Client.V1;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Win32;
 using System.Diagnostics;
 using Velopack;
 using Velopack.Exceptions;
@@ -23,6 +24,40 @@ public partial class App : Application
         services.AddSingleton<IBuildforgeClient, MockBuildforgeClient>();
 
         Services = services.BuildServiceProvider();
+    }
+
+    [STAThread]
+    private static void Main(string[] args)
+    {
+        VelopackApp.Build().Run();
+
+        RegisterProtocol();
+
+        using var cts = new CancellationTokenSource();
+
+        var updateAppTask = Task.Run(async () =>
+        {
+            await UpdateLoop(cts.Token);
+        });
+
+        App app = new();
+
+        app.InitializeComponent();
+
+        app.Exit += async (sender, e) =>
+        {
+            cts.Cancel();
+
+            try
+            {
+                await updateAppTask;
+            }
+            catch (OperationCanceledException)
+            {
+            }
+        };
+
+        app.Run();
     }
 
     private static void RegisterProtocol()
@@ -71,37 +106,5 @@ public partial class App : Application
 
             await Task.Delay(TimeSpan.FromMinutes(5), ct);
         }
-    }
-
-    [STAThread]
-    private static void Main(string[] args)
-    {
-        VelopackApp.Build().Run();
-
-        using var cts = new CancellationTokenSource();
-
-        var updateAppTask = Task.Run(async () =>
-        {
-            await UpdateLoop(cts.Token);
-        });
-
-        App app = new();
-
-        app.InitializeComponent();
-
-        app.Exit += async (sender, e) =>
-        {
-            cts.Cancel();
-
-            try
-            {
-                await updateAppTask;
-            }
-            catch (OperationCanceledException)
-            {
-            }
-        };
-
-        app.Run();
     }
 }
