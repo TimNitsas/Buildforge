@@ -1,4 +1,5 @@
 ﻿using Buildforge.App.ViewModel;
+using Buildforge.Client.V1;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics;
 using Velopack;
@@ -18,6 +19,8 @@ public partial class App : Application
         services.AddSingleton<MainViewModel>();
 
         services.AddSingleton<BuildViewModel>();
+
+        services.AddSingleton<IBuildforgeClient, MockBuildforgeClient>();
 
         Services = services.BuildServiceProvider();
     }
