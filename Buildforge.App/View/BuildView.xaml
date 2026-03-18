@@ -15,6 +15,6 @@
             <i:InvokeCommandAction Command="{Binding LoadCommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <DataGrid>
+    <DataGrid ItemsSource="{Binding Builds}">
     </DataGrid>
 </UserControl>
