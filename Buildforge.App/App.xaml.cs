@@ -25,6 +25,21 @@ public partial class App : Application
         Services = services.BuildServiceProvider();
     }
 
+    private static void RegisterProtocol()
+    {
+        using var key = Registry.CurrentUser.CreateSubKey($"SOFTWARE\\Classes\\buildforge");
+
+        string applicationLocation = typeof(App).Assembly.Location.Replace("dll", "exe");
+
+        key.SetValue(string.Empty, "URL:Build Forge");
+
+        key.SetValue("URL Protocol", string.Empty);
+
+        using var commandKey = key.CreateSubKey(@"shell\open\command");
+
+        commandKey.SetValue(string.Empty, $"\"{applicationLocation}\" \"%1\"");
+    }
+
     private static async Task UpdateLoop(CancellationToken ct)
     {
         var source = new GithubSource("https://github.com/TimNitsas/Buildforge", null, false);
