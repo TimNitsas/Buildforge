@@ -20,6 +20,6 @@
 		<Page Include="App.xaml" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\Buildforge.Client\Buildforge.Client.csproj" />
+		<ProjectReference Include="..\Buildforge.Client\Buildforge.Client.csproj" />
 	</ItemGroup>
 </Project>
