@@ -89,13 +89,8 @@ public partial class App : Application
             {
                 newVersion = await updateManager.CheckForUpdatesAsync();
             }
-            catch (NotInstalledException)
+            catch (NotInstalledException) when (!Debugger.IsAttached)
             {
-                if (Debugger.IsAttached)
-                {
-                    return;
-                }
-
                 throw;
             }
 
