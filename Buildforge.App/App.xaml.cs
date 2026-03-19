@@ -3,6 +3,10 @@ using Buildforge.Client.V1;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
 using System.Diagnostics;
+using System.IO;
+using System.IO.Pipes;
+using System.Threading.Channels;
+using System.Windows.Threading;
 using Velopack;
 using Velopack.Exceptions;
 using Velopack.Sources;
@@ -13,8 +17,15 @@ public partial class App : Application
 {
     public static IServiceProvider Services { get; }
 
+    private static Mutex? SingleInstanceMutex;
+
     static App()
     {
+        Dispatcher.CurrentDispatcher.ShutdownFinished += (s, e) =>
+        {
+            SingleInstanceMutex?.ReleaseMutex();
+        };
+
         var services = new ServiceCollection();
 
         services.AddSingleton<MainViewModel>();
@@ -29,11 +40,13 @@ public partial class App : Application
     [STAThread]
     private static void Main(string[] args)
     {
+        using var cts = new CancellationTokenSource();
+
+        EnforceSingleInstance(args, cts.Token);
+
         VelopackApp.Build().Run();
 
         RegisterProtocol();
-
-        using var cts = new CancellationTokenSource();
 
         var updateAppTask = Task.Run(async () =>
         {
@@ -58,6 +71,52 @@ public partial class App : Application
         };
 
         app.Run();
+    }
+
+    private static void EnforceSingleInstance(string[] args, CancellationToken ct)
+    {
+        var mutex = new Mutex(true, nameof(Buildforge), out bool ownership);
+
+        if (ownership)
+        {
+            SingleInstanceMutex = mutex;
+
+            Task.Run(async () => await RunPipeServer(ct), ct);
+        }
+        else
+        {
+            using var client = new NamedPipeClientStream(nameof(Buildforge));
+
+            client.Connect();
+
+            using StreamWriter writer = new(client);
+
+            writer.Write(string.Join(" ", args));
+
+            writer.Flush();
+
+            Environment.Exit(0);
+        }
+    }
+
+    private static async Task RunPipeServer(CancellationToken ct)
+    {
+        while (!ct.IsCancellationRequested)
+        {
+            var options = PipeOptions.Asynchronous;
+
+            using var server = new NamedPipeServerStream(nameof(Buildforge), PipeDirection.InOut, 1, PipeTransmissionMode.Message, options);
+
+            await server.WaitForConnectionAsync(ct);
+
+            using var reader = new StreamReader(server, Encoding.UTF8);
+
+            string args = await reader.ReadToEndAsync(ct);
+
+            string[] split = args.Split(' ');
+
+            await ArgsChannel.Writer.WriteAsync(split, ct);
+        }
     }
 
     private static void RegisterProtocol()
