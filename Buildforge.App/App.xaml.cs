@@ -1,10 +1,12 @@
-﻿using Buildforge.App.ViewModel;
+﻿using Buildforge.App.Cli;
+using Buildforge.App.ViewModel;
 using Buildforge.Client.V1;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Pipes;
+using System.Runtime.CompilerServices;
 using System.Threading.Channels;
 using System.Windows.Threading;
 using Velopack;
@@ -16,6 +18,15 @@ namespace Buildforge.App;
 public partial class App : Application
 {
     public static IServiceProvider Services { get; }
+
+    private static readonly Channel<string> ArgsChannel = Channel.CreateUnbounded<string>(new UnboundedChannelOptions()
+    {
+        SingleWriter = true,
+        SingleReader = true,
+        AllowSynchronousContinuations = false
+    });
+
+    private const string ProtocolKey = "buildforge";
 
     private static Mutex? SingleInstanceMutex;
 
@@ -46,6 +57,8 @@ public partial class App : Application
 
         VelopackApp.Build().Run();
 
+        Task.Run(async () => ReadCommands(cts.Token), cts.Token);
+
         RegisterProtocol();
 
         var updateAppTask = Task.Run(async () =>
@@ -71,6 +84,35 @@ public partial class App : Application
         };
 
         app.Run();
+    }
+
+    private static async Task ReadCommands(CancellationToken ct)
+    {
+        while (!ct.IsCancellationRequested)
+        {
+            if (!await ArgsChannel.Reader.WaitToReadAsync(ct))
+            {
+                break;
+            }
+
+            var args = await ArgsChannel.Reader.ReadAsync(ct);
+
+            var protocolPrefix = $"{ProtocolKey}:";
+
+            if (args.StartsWith(protocolPrefix))
+            {
+                args = args.Replace(protocolPrefix, string.Empty);
+            }
+
+            var result = DotMake.CommandLine.Cli.Parse<RootCli>(args);
+
+            if (result.ParseResult.Errors.Any())
+            {
+                continue;
+            }
+
+            await result.ParseResult.InvokeAsync(cancellationToken: ct);
+        }
     }
 
     private static void EnforceSingleInstance(string[] args, CancellationToken ct)
@@ -113,15 +155,13 @@ public partial class App : Application
 
             string args = await reader.ReadToEndAsync(ct);
 
-            string[] split = args.Split(' ');
-
-            await ArgsChannel.Writer.WriteAsync(split, ct);
+            await ArgsChannel.Writer.WriteAsync(args, ct);
         }
     }
 
     private static void RegisterProtocol()
     {
-        using var key = Registry.CurrentUser.CreateSubKey($"SOFTWARE\\Classes\\buildforge");
+        using var key = Registry.CurrentUser.CreateSubKey($"SOFTWARE\\Classes\\{ProtocolKey}");
 
         string applicationLocation = typeof(App).Assembly.Location.Replace("dll", "exe");
 
