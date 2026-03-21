@@ -1,5 +1,4 @@
 ﻿using DotMake.CommandLine;
-using System.Windows.Threading;
 
 namespace Buildforge.App.Cli;
 
