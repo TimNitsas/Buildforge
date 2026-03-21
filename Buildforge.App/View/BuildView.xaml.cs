@@ -1,5 +1,4 @@
 ﻿using Buildforge.App.ViewModel;
-using Microsoft.Extensions.DependencyInjection;
 using System.Windows.Controls;
 
 namespace Buildforge.App.View;
