@@ -10,6 +10,7 @@
 		<StartupObject>Buildforge.App.App</StartupObject>
 	</PropertyGroup>
 	<ItemGroup>
+		<PackageReference Include="DotMake.CommandLine" Version="3.1.0" />
 		<PackageReference Include="Velopack" Version="0.0.1298" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
