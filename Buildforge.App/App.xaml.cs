@@ -1,14 +1,6 @@
 ﻿using Buildforge.App.Cli;
 using Buildforge.App.ViewModel;
 using Buildforge.Client.V1;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Win32;
-using System.Diagnostics;
-using System.IO;
-using System.IO.Pipes;
-using System.Runtime.CompilerServices;
-using System.Threading.Channels;
-using System.Windows.Threading;
 using Velopack;
 using Velopack.Exceptions;
 using Velopack.Sources;
