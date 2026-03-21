@@ -1,5 +1,12 @@
-﻿global using System;
+﻿global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Win32;
+global using System;
 global using System.Collections.Generic;
+global using System.Diagnostics;
+global using System.IO;
+global using System.IO.Pipes;
 global using System.Reflection;
 global using System.Text;
+global using System.Threading.Channels;
 global using System.Windows;
+global using System.Windows.Threading;
