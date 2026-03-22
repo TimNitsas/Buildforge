@@ -1,4 +1,4 @@
-﻿namespace Buildforge.Service.Controller.Build.V1;
+﻿namespace Buildforge.Service.Controller.Build.V1.Model;
 
 public sealed class BuildResult
 {
