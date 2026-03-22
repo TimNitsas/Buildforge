@@ -1,6 +1,8 @@
 ﻿using Buildforge.App.Cli;
+using Buildforge.App.Event;
 using Buildforge.App.ViewModel;
 using Buildforge.Client.V1;
+using Polly;
 using Velopack;
 using Velopack.Exceptions;
 using Velopack.Sources;
@@ -35,6 +37,8 @@ public partial class App : Application
 
         services.AddSingleton<BuildViewModel>();
 
+        services.AddSingleton<EventPublisher>();
+
         services.AddSingleton<IBuildforgeClient, MockBuildforgeClient>();
 
         Services = services.BuildServiceProvider();
@@ -50,6 +54,8 @@ public partial class App : Application
         VelopackApp.Build().Run();
 
         Task.Run(async () => ReadCommands(cts.Token), cts.Token);
+
+        Task.Run(async () => LongPollUpdates(cts.Token), cts.Token);
 
         RegisterProtocol();
 
@@ -76,6 +82,33 @@ public partial class App : Application
         };
 
         app.Run();
+    }
+
+    private static async Task LongPollUpdates(CancellationToken ct)
+    {
+        var client = Services.GetRequiredService<IBuildforgeClient>();
+
+        var eventPublisher = Services.GetRequiredService<EventPublisher>();
+
+        static TimeSpan RetryLogic(int attempt)
+        {
+            return TimeSpan.FromSeconds(Math.Min(60, Math.Pow(2, attempt)));
+        }
+
+        while (!ct.IsCancellationRequested)
+        {
+            var retryPolicy = Policy.Handle<Exception>().WaitAndRetryForeverAsync(RetryLogic);
+
+            await retryPolicy.ExecuteAsync(async () =>
+            {
+                foreach (var item in await client.UpdatesAsync(ct))
+                {
+                    eventPublisher.Publish(item);
+                }
+            });
+
+            await Task.Delay(TimeSpan.FromSeconds(1), ct);
+        }
     }
 
     private static async Task ReadCommands(CancellationToken ct)
