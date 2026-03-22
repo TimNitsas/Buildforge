@@ -47,6 +47,44 @@
           }
         }
       }
+    },
+    "/api/v1/builds/updates": {
+      "get": {
+        "tags": [
+          "Build"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BuildStatus"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BuildStatus"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BuildStatus"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -73,6 +111,41 @@
             "items": {
               "$ref": "#/components/schemas/Build"
             }
+          }
+        }
+      },
+      "BuildStatus": {
+        "type": "object",
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/BuildStatusBuildStatusFailed"
+          },
+          {
+            "$ref": "#/components/schemas/BuildStatusBuildStateSuccess"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "discriminator"
+        }
+      },
+      "BuildStatusBuildStateSuccess": {
+        "required": [
+          "buildTime"
+        ],
+        "properties": {
+          "buildTime": {
+            "pattern": "^-?(\\d+\\.)?\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,7})?$",
+            "type": "string"
+          }
+        }
+      },
+      "BuildStatusBuildStatusFailed": {
+        "required": [
+          "reason"
+        ],
+        "properties": {
+          "reason": {
+            "type": "string"
           }
         }
       }
