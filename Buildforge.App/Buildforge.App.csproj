@@ -8,10 +8,12 @@
 		<EnableWindowsTargeting>true</EnableWindowsTargeting>
 		<Version>0.0.4</Version>
 		<StartupObject>Buildforge.App.App</StartupObject>
+		<ApplicationIcon>Icon.ico</ApplicationIcon>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="DotMake.CommandLine" Version="3.1.0" />
 		<PackageReference Include="Polly" Version="8.6.6" />
+		<PackageReference Include="Vanara.PInvoke.Shell32" Version="5.0.1" />
 		<PackageReference Include="Velopack" Version="0.0.1298" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.1" />
 		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.142" />
@@ -19,6 +21,8 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ApplicationDefinition Remove="App.xaml" />
+		<None Remove="Icon.ico" />
+		<Content Include="Icon.ico" />
 		<Page Include="App.xaml" />
 	</ItemGroup>
 	<ItemGroup>
