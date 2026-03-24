@@ -7,11 +7,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:v="clr-namespace:Buildforge.App.View"
     xmlns:vm="clr-namespace:Buildforge.App.ViewModel"
-    Title="MainWindow"
+    Title="Buildforge"
     Width="800"
     Height="450"
     d:DataContext="{d:DesignInstance Type=vm:MainViewModel,
                                      IsDesignTimeCreatable=True}"
+    StateChanged="OnStateChanged"
     mc:Ignorable="d">
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">
