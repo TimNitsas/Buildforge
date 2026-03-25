@@ -19,7 +19,12 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <UserControl.Resources>
-        <c:HumanizeDateTimeConverter x:Key="HumanizeDateTimeConverter" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Buildforge.App;component/View/BuildView.BuildStatus.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <c:HumanizeDateTimeConverter x:Key="HumanizeDateTimeConverter" />
+        </ResourceDictionary>
     </UserControl.Resources>
     <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Builds}">
         <DataGrid.Columns>
@@ -35,7 +40,14 @@
             <DataGridTemplateColumn Header="Start Date">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding StartDate, Converter={StaticResource HumanizeDateTimeConverter}}" />
+                        <TextBlock Text="{Binding Status.StartTime, Converter={StaticResource HumanizeDateTimeConverter}}" />
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Build Status">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <ContentPresenter Content="{Binding Status}" />
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
