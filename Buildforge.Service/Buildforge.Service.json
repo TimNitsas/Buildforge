@@ -96,7 +96,8 @@
           "mapping": {
             "BuildStatusFailed": "#/components/schemas/BuildStatusFailed",
             "BuildStatusSuccess": "#/components/schemas/BuildStatusSuccess",
-            "BuildStatusQueued": "#/components/schemas/BuildStatusQueued"
+            "BuildStatusQueued": "#/components/schemas/BuildStatusQueued",
+            "BuildStatusActive": "#/components/schemas/BuildStatusActive"
           }
         },
         "x-abstract": true,
@@ -148,6 +149,17 @@
         ]
       },
       "BuildStatusQueued": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BuildStatus"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false
+          }
+        ]
+      },
+      "BuildStatusActive": {
         "allOf": [
           {
             "$ref": "#/components/schemas/BuildStatus"
