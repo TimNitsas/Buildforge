@@ -1,5 +1,3 @@
-using Scalar.AspNetCore;
-
 namespace Buildforge.Service;
 
 public class Program
@@ -8,17 +6,20 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        builder.Services.AddOpenApi("v1");
-
         builder.Services.AddControllers();
+
+        builder.Services.AddOpenApiDocument(s =>
+        {
+            s.ApiGroupNames = ["v1"];
+        });
 
         var app = builder.Build();
 
         app.MapControllers();
 
-        app.MapOpenApi();
+        app.UseOpenApi(); 
 
-        app.MapScalarApiReference();
+        app.UseSwaggerUi(); 
 
         app.Run();
     }
