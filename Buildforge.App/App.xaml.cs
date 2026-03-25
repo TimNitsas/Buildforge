@@ -1,7 +1,9 @@
 ﻿using Buildforge.App.Cli;
 using Buildforge.App.Event;
+using Buildforge.App.Messaging;
 using Buildforge.App.ViewModel;
 using Buildforge.Client.V1;
+using CommunityToolkit.Mvvm.Messaging;
 using Polly;
 using Velopack;
 using Velopack.Exceptions;
@@ -41,6 +43,8 @@ public partial class App : Application
 
         services.AddSingleton<IBuildforgeClient, MockBuildforgeClient>();
 
+        services.AddSingleton<IMessenger>(WeakReferenceMessenger.Default);
+
         Services = services.BuildServiceProvider();
     }
 
@@ -56,6 +60,8 @@ public partial class App : Application
         Task.Run(async () => ReadCommands(cts.Token), cts.Token);
 
         Task.Run(async () => LongPollUpdates(cts.Token), cts.Token);
+
+        Task.Run(async () => TickTimeLoop(cts.Token), cts.Token);
 
         RegisterProtocol();
 
@@ -82,6 +88,18 @@ public partial class App : Application
         };
 
         app.Run();
+    }
+
+    private static async Task TickTimeLoop(CancellationToken ct)
+    {
+        IMessenger messenger = Services.GetRequiredService<IMessenger>();
+
+        while (!ct.IsCancellationRequested)
+        {
+            messenger.Send(TickTimeMessage.Instance);
+
+            await Task.Delay(TimeSpan.FromSeconds(5), ct);
+        }
     }
 
     private static async Task LongPollUpdates(CancellationToken ct)
