@@ -2,11 +2,12 @@
     x:Class="Buildforge.App.View.BuildView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:c="clr-namespace:Buildforge.App.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:Buildforge.App.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:vm="clr-namespace:Buildforge.App.ViewModel"
+    xmlns:vm="clr-namespace:Buildforge.App.ViewModel.Build"
     d:DataContext="{d:DesignInstance Type=vm:BuildViewModelDesignTime,
                                      IsDesignTimeCreatable=True}"
     d:DesignHeight="450"
@@ -17,6 +18,9 @@
             <i:InvokeCommandAction Command="{Binding LoadCommand}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
+    <UserControl.Resources>
+        <c:HumanizeDateTimeConverter x:Key="HumanizeDateTimeConverter" />
+    </UserControl.Resources>
     <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Builds}">
         <DataGrid.Columns>
             <DataGridTemplateColumn Header="Name">
@@ -25,6 +29,13 @@
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding Name}" />
                         </StackPanel>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Start Date">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding StartDate, Converter={StaticResource HumanizeDateTimeConverter}}" />
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
