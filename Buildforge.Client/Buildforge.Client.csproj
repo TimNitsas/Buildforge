@@ -15,7 +15,7 @@
 		</PackageReference>
 	</ItemGroup>
 
-	<Target Name="NSwag" AfterTargets="PostBuildEvent">
+	<Target Name="NSwag" AfterTargets="PreBuildEvent">
 		<Exec WorkingDirectory="$(ProjectDir)" Command="$(NSwagExe_Net100) run nswag.json /variables:Configuration=$(Configuration)" />
 	</Target>
 </Project>
