@@ -1,7 +1,4 @@
 ﻿using Buildforge.Client.V1;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using System.Collections.ObjectModel;
 
 namespace Buildforge.App.ViewModel;
 
@@ -19,7 +16,7 @@ public partial class BuildViewModel : ObservableObject
     [RelayCommand]
     public async Task Load()
     {
-        var buildResult = await BuildforgeClient.BuildsAsync(0);
+        var buildResult = await BuildforgeClient.GetBuildAsync(0);
 
         if (buildResult is null)
         {
