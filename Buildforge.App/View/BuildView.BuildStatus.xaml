@@ -1,0 +1,36 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mi="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
+    xmlns:view="clr-namespace:Buildforge.App.ViewModel.Build">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Buildforge.App;component/Theme/Theme.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    <Style TargetType="mi:MaterialIcon">
+        <Setter Property="Margin" Value="4" />
+    </Style>
+    <DataTemplate DataType="{x:Type view:BuildItemStatusSuccessViewModel}">
+        <StackPanel Orientation="Horizontal">
+            <mi:MaterialIcon Foreground="{StaticResource Green}" Kind="Success" />
+            <TextBlock Text="Success" />
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type view:BuildItemStatusQueuedViewModel}">
+        <StackPanel Orientation="Horizontal">
+            <mi:MaterialIcon Foreground="{StaticResource Gray}" Kind="StopCircle" />
+            <TextBlock Text="Queued" />
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type view:BuildItemStatusFailedViewModel}">
+        <StackPanel Orientation="Horizontal">
+            <mi:MaterialIcon Foreground="{StaticResource Red}" Kind="Error" />
+            <TextBlock Text="Failed" />
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type view:BuildItemStatusActiveViewModel}">
+        <StackPanel Orientation="Horizontal">
+            <mi:MaterialIcon Foreground="{StaticResource Blue}" Kind="Gear" />
+            <TextBlock Text="Active" />
+        </StackPanel>
+    </DataTemplate>
+</ResourceDictionary>
