@@ -6,11 +6,11 @@
     xmlns:local="clr-namespace:Buildforge.App"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:v="clr-namespace:Buildforge.App.View"
-    xmlns:vm="clr-namespace:Buildforge.App.ViewModel"
+    xmlns:vm="clr-namespace:Buildforge.App.ViewModel.Main"
     Title="Buildforge"
     Width="800"
     Height="450"
-    d:DataContext="{d:DesignInstance Type=vm:MainViewModel,
+    d:DataContext="{d:DesignInstance Type=vm:MainViewModelDesignTime,
                                      IsDesignTimeCreatable=True}"
     StateChanged="OnStateChanged"
     mc:Ignorable="d">
