@@ -11,15 +11,16 @@ public class Program
         builder.Services.AddOpenApiDocument(s =>
         {
             s.ApiGroupNames = ["v1"];
+            s.Title = "Buildforge Service";
         });
 
         var app = builder.Build();
 
         app.MapControllers();
 
-        app.UseOpenApi(); 
+        app.UseOpenApi();
 
-        app.UseSwaggerUi(); 
+        app.UseSwaggerUi();
 
         app.Run();
     }
