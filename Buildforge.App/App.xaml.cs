@@ -2,6 +2,7 @@
 using Buildforge.App.Event;
 using Buildforge.App.Messaging;
 using Buildforge.App.ViewModel;
+using Buildforge.App.ViewModel.Main;
 using Buildforge.Client.V1;
 using CommunityToolkit.Mvvm.Messaging;
 using Polly;
