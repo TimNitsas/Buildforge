@@ -1,4 +1,4 @@
-﻿namespace Buildforge.App.ViewModel;
+﻿namespace Buildforge.App.ViewModel.Main;
 
 public partial class MainViewModel
 {
@@ -8,4 +8,9 @@ public partial class MainViewModel
     {
         Version = Assembly.GetExecutingAssembly().GetName().Version?.ToString();
     }
+}
+
+public sealed class MainViewModelDesignTime: MainViewModel
+{
+    
 }
