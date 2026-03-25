@@ -101,7 +101,7 @@ public partial class App : Application
 
             await retryPolicy.ExecuteAsync(async () =>
             {
-                foreach (var item in await client.UpdatesAsync(ct))
+                foreach (var item in await client.GetUpdatesAsync(ct))
                 {
                     eventPublisher.Publish(item);
                 }
