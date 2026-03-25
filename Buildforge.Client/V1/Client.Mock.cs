@@ -6,24 +6,37 @@ public partial class MockBuildforgeClient : IBuildforgeClient
 {
     private static readonly Random Random = new Random();
 
-    public async Task<BuildResult> BuildsAsync(int? skip = null, CancellationToken cancellationToken = default)
+    public async Task<BuildResult> GetBuildAsync(int? skip = null, CancellationToken cancellationToken = default)
     {
         await Task.Yield();
 
-        var buildResult = new BuildResult();
+        return GetBuildResult();
+    }
+
+    public static BuildResult GetBuildResult()
+    {
+        var buildResult = new BuildResult
+        {
+            Builds = []
+        };
 
         for (int i = 0; i < 100; i++)
         {
             buildResult.Builds.Add(new Build()
             {
-                Name = NameGenerator.Identifiers.Get()
+                Name = NameGenerator.Identifiers.Get(),
+                Status = new BuildStatusSuccess()
+                {
+                    BuildTime = TimeSpan.FromSeconds(i),
+                    StartTime = DateTime.UtcNow - TimeSpan.FromSeconds(i * i)
+                }
             });
         }
 
         return buildResult;
     }
 
-    Task<ICollection<BuildStatus>> IBuildforgeClient.UpdatesAsync(CancellationToken cancellationToken)
+    public Task<ICollection<BuildStatus>> GetUpdatesAsync(CancellationToken cancellationToken)
     {
         if (Random.NextDouble() > 0.5f)
         {
