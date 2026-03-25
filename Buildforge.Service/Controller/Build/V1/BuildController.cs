@@ -35,7 +35,7 @@ public class BuildController : ControllerBase
                 Reason = string.Empty
             };
 
-            yield return new BuildStateSuccess
+            yield return new BuildStatusSuccess
             {
                 BuildTime = TimeSpan.FromSeconds(1)
             };
