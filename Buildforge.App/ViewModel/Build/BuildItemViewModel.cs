@@ -1,34 +1,26 @@
-﻿using Buildforge.App.Messaging;
-using Buildforge.Client.V1;
-using CommunityToolkit.Mvvm.Messaging;
+﻿using Buildforge.Client.V1;
 
 namespace Buildforge.App.ViewModel.Build;
 
-public partial class BuildItemViewModel : ObservableObject, IRecipient<TickTimeMessage>
+public partial class BuildItemViewModel : ObservableObject
 {
     [ObservableProperty]
     private string? name;
 
     [ObservableProperty]
-    private DateTime? startDate;
+    private BuildItemStatusViewModel? status;
 
     public BuildItemViewModel(Client.V1.Build build)
     {
-        WeakReferenceMessenger.Default.RegisterAll(this);
-
         Name = build.Name;
 
-        StartDate = build.Status switch
+        Status = build.Status switch
         {
-            BuildStatusSuccess s => s.StartTime.UtcDateTime,
-            BuildStatusFailed f => f.StartTime.UtcDateTime,
-            BuildStatusQueued q => q.StartTime.UtcDateTime,
-            _ => null,
+            BuildStatusSuccess s => new BuildItemStatusSuccessViewModel(s),
+            BuildStatusFailed f => new BuildItemStatusFailedViewModel(f),
+            BuildStatusQueued q => new BuildItemStatusQueuedViewModel(q),
+            BuildStatusActive a => new BuildItemStatusActiveViewModel(a),
+            _ => null
         };
-    }
-
-    public void Receive(TickTimeMessage message)
-    {
-        OnPropertyChanged(nameof(StartDate));
     }
 }
