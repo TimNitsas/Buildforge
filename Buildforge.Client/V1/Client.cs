@@ -382,8 +382,7 @@ namespace Buildforge.Client.V1
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Name { get; set; } = default!;
 
-        [Newtonsoft.Json.JsonProperty("target", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required]
+        [Newtonsoft.Json.JsonProperty("target", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Target { get; set; } = default!;
 
         [Newtonsoft.Json.JsonProperty("status", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -395,6 +394,7 @@ namespace Buildforge.Client.V1
     [JsonInheritanceAttribute("BuildStatusFailed", typeof(BuildStatusFailed))]
     [JsonInheritanceAttribute("BuildStatusSuccess", typeof(BuildStatusSuccess))]
     [JsonInheritanceAttribute("BuildStatusQueued", typeof(BuildStatusQueued))]
+    [JsonInheritanceAttribute("BuildStatusActive", typeof(BuildStatusActive))]
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
     public abstract partial class BuildStatus
     {
@@ -424,6 +424,12 @@ namespace Buildforge.Client.V1
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class BuildStatusQueued : BuildStatus
+    {
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class BuildStatusActive : BuildStatus
     {
 
     }
