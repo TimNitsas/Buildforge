@@ -25,16 +25,24 @@ public partial class MockBuildforgeClient : IBuildforgeClient
             buildResult.Builds.Add(new Build()
             {
                 Name = NameGenerator.Identifiers.Get(),
-                Status = new BuildStatusSuccess()
-                {
-                    BuildTime = TimeSpan.FromSeconds(i),
-                    StartTime = DateTime.UtcNow - TimeSpan.FromSeconds(i * i)
-                }
+                Status = BuildStatus[Random.Next(BuildStatus.Count)]()
             });
         }
 
         return buildResult;
     }
+
+    private static readonly List<Func<BuildStatus>> BuildStatus =
+    [
+        () => new BuildStatusFailed(),
+        () => new BuildStatusQueued(),
+        () => new BuildStatusActive(),
+        () => new BuildStatusSuccess()
+        {
+            BuildTime = TimeSpan.FromMinutes(Random.Next(1, 240)),
+            StartTime = DateTime.UtcNow - TimeSpan.FromSeconds(Random.Next(240, 480))
+        }
+    ];
 
     public Task<ICollection<BuildStatus>> GetUpdatesAsync(CancellationToken cancellationToken)
     {
