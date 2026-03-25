@@ -1,8 +1,10 @@
-﻿using Buildforge.Client.V1;
+﻿using Buildforge.App.Messaging;
+using Buildforge.Client.V1;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace Buildforge.App.ViewModel.Build;
 
-public partial class BuildItemViewModel : ObservableObject
+public partial class BuildItemViewModel : ObservableObject, IRecipient<TickTimeMessage>
 {
     [ObservableProperty]
     private string? name;
@@ -12,6 +14,8 @@ public partial class BuildItemViewModel : ObservableObject
 
     public BuildItemViewModel(Client.V1.Build build)
     {
+        WeakReferenceMessenger.Default.RegisterAll(this);
+
         Name = build.Name;
 
         StartDate = build.Status switch
@@ -21,5 +25,10 @@ public partial class BuildItemViewModel : ObservableObject
             BuildStatusQueued q => q.StartTime.UtcDateTime,
             _ => null,
         };
+    }
+
+    public void Receive(TickTimeMessage message)
+    {
+        OnPropertyChanged(nameof(StartDate));
     }
 }
