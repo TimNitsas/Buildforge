@@ -78,14 +78,41 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
+          "id": {
+            "type": "string"
+          },
           "name": {
             "type": "string"
           },
           "target": {
             "type": "string"
           },
+          "platform": {
+            "type": "string"
+          },
+          "branch": {
+            "type": "string"
+          },
           "status": {
             "$ref": "#/components/schemas/BuildStatus"
+          },
+          "contributions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BuildContribution"
+            }
+          },
+          "crashes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BuildCrash"
+            }
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       },
@@ -143,6 +170,10 @@
               "buildTime": {
                 "type": "string",
                 "format": "duration"
+              },
+              "bytes": {
+                "type": "integer",
+                "format": "int64"
               }
             }
           }
@@ -169,6 +200,38 @@
             "additionalProperties": false
           }
         ]
+      },
+      "BuildContribution": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "user": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "BuildCrash": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "user": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "playTime": {
+            "type": "string",
+            "format": "duration"
+          }
+        }
       }
     }
   }
