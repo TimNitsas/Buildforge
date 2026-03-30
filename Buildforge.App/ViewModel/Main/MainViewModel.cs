@@ -10,7 +10,7 @@ public partial class MainViewModel
     }
 }
 
-public sealed class MainViewModelDesignTime: MainViewModel
+public sealed class MainViewModelDesignTime : MainViewModel
 {
-    
+
 }
