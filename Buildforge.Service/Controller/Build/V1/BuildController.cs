@@ -35,11 +35,6 @@ public class BuildController : ControllerBase
                 Reason = string.Empty
             };
 
-            yield return new BuildStatusSuccess
-            {
-                BuildTime = TimeSpan.FromSeconds(1)
-            };
-
             await Task.Delay(2000, cancellationToken);
         }
     }
