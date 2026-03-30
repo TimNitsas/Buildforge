@@ -8,7 +8,21 @@ public partial class BuildItemViewModel : ObservableObject
     private string? name;
 
     [ObservableProperty]
+    private string? id;
+
+    [ObservableProperty]
     private BuildItemStatusViewModel? status;
+
+    [ObservableProperty]
+    private long? bytes;
+
+    [ObservableProperty]
+    private string? target;
+
+    [ObservableProperty]
+    private string? platform;
+
+    public ObservableCollection<BuildItemContributionViewModel> Contributions { get; }
 
     public BuildItemViewModel(Client.V1.Build build)
     {
@@ -22,5 +36,19 @@ public partial class BuildItemViewModel : ObservableObject
             BuildStatusActive a => new BuildItemStatusActiveViewModel(a),
             _ => null
         };
+
+        Bytes = build.Status switch
+        {
+            BuildStatusSuccess s => s.Bytes,
+            _ => null
+        };
+
+        Contributions = new(build.Contributions.Select(c => new BuildItemContributionViewModel(c)));
+
+        Target = build.Target;
+
+        Platform = build.Platform;
+
+        Id = build.Id;
     }
 }
