@@ -1,0 +1,29 @@
+﻿<UserControl
+    x:Class="Buildforge.App.Control.Person"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:c="clr-namespace:Buildforge.App.Converter"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Buildforge.App.Control"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="50"
+    d:DesignWidth="50"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <c:InitialsConverter x:Key="InitialsConverter" />
+    </UserControl.Resources>
+    <Border
+        Width="16"
+        Height="16"
+        VerticalAlignment="Center"
+        Background="DarkGray"
+        CornerRadius="16"
+        ToolTip="{Binding PersonName, RelativeSource={RelativeSource AncestorType=UserControl}}">
+        <TextBlock
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            FontSize="8"
+            Foreground="White"
+            Text="{Binding PersonName, RelativeSource={RelativeSource AncestorType=UserControl}, Converter={StaticResource InitialsConverter}}" />
+    </Border>
+</UserControl>
