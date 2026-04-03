@@ -13,6 +13,10 @@ public partial class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
+        var authenticatorSection = builder.Configuration.GetSection(nameof(AuthenticatorOptions));
+
+        builder.Services.AddOptionsWithValidateOnStart<AuthenticatorOptions>().Bind(authenticatorSection).ValidateDataAnnotations();
+
         builder.Services.AddControllers();
 
         builder.Services.AddOpenApiDocument(s =>
