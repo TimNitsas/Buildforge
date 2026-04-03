@@ -1,6 +1,4 @@
-﻿using System.Windows.Controls;
-
-namespace Buildforge.App.Control;
+﻿namespace Buildforge.App.Control;
 
 public partial class Person : UserControl
 {
