@@ -12,7 +12,7 @@ public sealed partial class AuthenticationViewModel(IAuthenticationClient client
     public static string RedirectUri => "http://localhost:3000/api/auth/callback/github";
 
     [ObservableProperty]
-    private string? userName;
+    private string? username;
 
     public async Task Authenticate(Uri uri)
     {
@@ -23,12 +23,16 @@ public sealed partial class AuthenticationViewModel(IAuthenticationClient client
         await tokenHandler.SaveToken(new Token.V1()
         {
             Payload = result.Jwt,
+            Username = result.Username,
             UtcExpiry = result.UtcExpiry.Date
         });
 
-        UserName = result.UserName;
+        Username = result.Username;
 
-        App.Services.GetRequiredService<EventPublisher>().Publish(TokenAcquiredEvent.Instance);
+        App.Services.GetRequiredService<EventPublisher>().Publish(new TokenAcquiredEvent()
+        {
+            Username = result.Username,
+        });
     }
 
     private static string GetUrl()
