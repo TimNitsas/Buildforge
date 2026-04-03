@@ -7,7 +7,7 @@
   },
   "codeGenerators": {
     "openApiToCSharpClient": {
-      "className": "BuildforgeClient",
+      "className": "{controller}Client",
       "namespace": "Buildforge.Client.V1",
       "generateClientInterfaces": true,
       "generateOptionalParameters": true,
