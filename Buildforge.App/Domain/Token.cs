@@ -10,6 +10,8 @@ public abstract class Token
     {
         public required string Payload { get; set; }
 
+        public required string Username { get; set; }
+
         public required DateTime UtcExpiry { get; set; }
     }
 }
