@@ -5,6 +5,7 @@
     xmlns:auth="clr-namespace:Buildforge.App.ViewModel.Authentication"
     xmlns:authvm="clr-namespace:Buildforge.App.ViewModel.Authentication"
     xmlns:build="clr-namespace:Buildforge.App.ViewModel.Build"
+    xmlns:c="clr-namespace:Buildforge.App.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Buildforge.App"
     xmlns:mainvm="clr-namespace:Buildforge.App.ViewModel.Main"
@@ -18,15 +19,24 @@
     StateChanged="OnStateChanged"
     mc:Ignorable="d">
     <Window.Resources>
-        <DataTemplate DataType="{x:Type auth:AuthenticationViewModel}">
-            <v:AuthenticationView />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type build:BuildViewModel}">
-            <v:BuildView />
-        </DataTemplate>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Buildforge.App;component/Theme/Theme.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <c:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
+            <DataTemplate DataType="{x:Type auth:AuthenticationViewModel}">
+                <v:AuthenticationView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type build:BuildViewModel}">
+                <v:BuildView />
+            </DataTemplate>
+        </ResourceDictionary>
     </Window.Resources>
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem Visibility="{Binding Username,Converter={StaticResource StringToVisibilityConverter}}">
+                <TextBlock Text="{Binding Username, StringFormat={}Logged as {0}}" />
+            </StatusBarItem>
             <StatusBarItem>
                 <TextBlock Text="{Binding Version, StringFormat={}Version {0}}" />
             </StatusBarItem>
