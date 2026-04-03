@@ -1,3 +1,10 @@
+using Buildforge.Service.Domain.Authenticator;
+using Buildforge.Service.Domain.Authenticator.Github;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using NSwag;
+using NSwag.Generation.Processors.Security;
+
 namespace Buildforge.Service;
 
 public partial class Program
