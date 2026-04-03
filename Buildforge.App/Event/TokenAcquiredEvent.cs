@@ -2,5 +2,5 @@
 
 public sealed class TokenAcquiredEvent
 {
-    public static readonly TokenAcquiredEvent Instance = new();
+    public required string Username { get; init; }
 }
