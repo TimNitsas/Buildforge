@@ -105,7 +105,7 @@ public partial class App : Application
 
     private static async Task LongPollUpdates(CancellationToken ct)
     {
-        var client = Services.GetRequiredService<IBuildforgeClient>();
+        var client = Services.GetRequiredService<IBuildClient>();
 
         var eventPublisher = Services.GetRequiredService<EventPublisher>();
 
