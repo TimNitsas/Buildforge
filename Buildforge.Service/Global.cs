@@ -1,0 +1,9 @@
+﻿global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.Extensions.Http.Resilience;
+global using Microsoft.Extensions.Options;
+global using Polly;
+global using System.Net.Http.Headers;
+global using System.Runtime.CompilerServices;
+global using System.Text.Json;
+global using System.ComponentModel.DataAnnotations;
+global using System.Text;
