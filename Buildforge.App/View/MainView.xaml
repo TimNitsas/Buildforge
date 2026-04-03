@@ -2,24 +2,35 @@
     x:Class="Buildforge.App.MainView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:auth="clr-namespace:Buildforge.App.ViewModel.Authentication"
+    xmlns:authvm="clr-namespace:Buildforge.App.ViewModel.Authentication"
+    xmlns:build="clr-namespace:Buildforge.App.ViewModel.Build"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Buildforge.App"
+    xmlns:mainvm="clr-namespace:Buildforge.App.ViewModel.Main"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:v="clr-namespace:Buildforge.App.View"
-    xmlns:vm="clr-namespace:Buildforge.App.ViewModel.Main"
     Title="Buildforge"
     Width="800"
     Height="450"
-    d:DataContext="{d:DesignInstance Type=vm:MainViewModelDesignTime,
+    d:DataContext="{d:DesignInstance Type=mainvm:MainViewModelDesignTime,
                                      IsDesignTimeCreatable=True}"
     StateChanged="OnStateChanged"
     mc:Ignorable="d">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type auth:AuthenticationViewModel}">
+            <v:AuthenticationView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type build:BuildViewModel}">
+            <v:BuildView />
+        </DataTemplate>
+    </Window.Resources>
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBarItem>
                 <TextBlock Text="{Binding Version, StringFormat={}Version {0}}" />
             </StatusBarItem>
         </StatusBar>
-        <v:BuildView />
+        <ContentControl Content="{Binding CurrentViewModel}" />
     </DockPanel>
 </Window>
