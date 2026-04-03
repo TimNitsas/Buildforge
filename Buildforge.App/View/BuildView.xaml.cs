@@ -1,7 +1,4 @@
-﻿using Buildforge.App.ViewModel;
-using System.Windows.Controls;
-
-namespace Buildforge.App.View;
+﻿namespace Buildforge.App.View;
 
 public partial class BuildView : UserControl
 {
