@@ -1,4 +1,5 @@
 ﻿using Buildforge.App.Domain;
+using Buildforge.App.Event;
 using Buildforge.Client.V1;
 using System.Web;
 
@@ -26,6 +27,8 @@ public sealed partial class AuthenticationViewModel(IAuthenticationClient client
         });
 
         UserName = result.UserName;
+
+        App.Services.GetRequiredService<EventPublisher>().Publish(TokenAcquiredEvent.Instance);
     }
 
     private static string GetUrl()
