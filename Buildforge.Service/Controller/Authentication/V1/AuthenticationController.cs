@@ -58,7 +58,7 @@ public sealed class AuthenticationController(IOptions<AuthenticatorOptions> opti
         {
             Jwt = jwt,
             UtcExpiry = expiry,
-            UserName = authenticationResult.UserName
+            Username = authenticationResult.UserName
         };
     }
 }
