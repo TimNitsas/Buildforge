@@ -22,7 +22,20 @@ public partial class Program
         builder.Services.AddOpenApiDocument(s =>
         {
             s.ApiGroupNames = ["v1"];
+
             s.Title = "Buildforge Service";
+
+            s.AddSecurity(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
+            {
+                Name = "Authorization",
+                In = OpenApiSecurityApiKeyLocation.Header,
+                Type = OpenApiSecuritySchemeType.Http,
+                Scheme = JwtBearerDefaults.AuthenticationScheme,
+            });
+
+            s.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor(JwtBearerDefaults.AuthenticationScheme));
+        });
+
         builder.Services.AddAuthorization(options =>
         {
             options.FallbackPolicy = options.DefaultPolicy;
