@@ -1,22 +1,15 @@
 ﻿using Buildforge.Client.V1;
 
-namespace Buildforge.App.ViewModel;
+namespace Buildforge.App.ViewModel.Build;
 
-public partial class BuildViewModel : ObservableObject
+public partial class BuildViewModel(IBuildClient client) : ObservableObject
 {
     public ObservableCollection<BuildItemViewModel> Builds { get; } = [];
-
-    private readonly IBuildforgeClient BuildforgeClient;
-
-    public BuildViewModel(IBuildforgeClient client)
-    {
-        BuildforgeClient = client;
-    }
 
     [RelayCommand]
     public async Task Load()
     {
-        var buildResult = await BuildforgeClient.GetBuildAsync(0);
+        var buildResult = await client.GetBuildAsync(0);
 
         if (buildResult is null)
         {
