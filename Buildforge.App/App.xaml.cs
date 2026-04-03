@@ -48,7 +48,12 @@ public partial class App : Application
 
         services.AddSingleton<TokenHandler>();
 
-        services.AddSingleton<IBuildforgeClient, MockBuildforgeClient>();
+        services.AddSingleton<IBuildClient, MockBuildforgeClient>();
+
+        services.AddSingleton<IAuthenticationClient>(sp =>
+        {
+            return new AuthenticationClient("http://localhost:5157", new HttpClient());
+        });
 
         services.AddSingleton<IMessenger>(WeakReferenceMessenger.Default);
 
