@@ -43,7 +43,6 @@ public partial class App : Application
         services.AddSingleton<BuildViewModel>();
 
         services.AddSingleton<EventPublisher>();
-        services.AddSingleton<EventPublisher>();
 
         services.AddSingleton<AuthenticationViewModel>();
 
