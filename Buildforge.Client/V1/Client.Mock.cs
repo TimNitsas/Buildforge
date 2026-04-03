@@ -1,10 +1,9 @@
 ﻿using Bogus;
-using Bogus.DataSets;
 using RandomFriendlyNameGenerator;
 
 namespace Buildforge.Client.V1;
 
-public partial class MockBuildforgeClient : IBuildforgeClient
+public partial class MockBuildforgeClient : IBuildClient
 {
     private static readonly Random Random = new Random(42);
 
