@@ -1,11 +1,13 @@
 ﻿using Buildforge.App.Cli;
+using Buildforge.App.Domain;
 using Buildforge.App.Event;
 using Buildforge.App.Messaging;
-using Buildforge.App.ViewModel;
+using Buildforge.App.ViewModel.Authentication;
 using Buildforge.App.ViewModel.Main;
 using Buildforge.Client.V1;
 using CommunityToolkit.Mvvm.Messaging;
 using Polly;
+using System.Net.Http;
 using Velopack;
 using Velopack.Exceptions;
 using Velopack.Sources;
@@ -41,6 +43,11 @@ public partial class App : Application
         services.AddSingleton<BuildViewModel>();
 
         services.AddSingleton<EventPublisher>();
+        services.AddSingleton<EventPublisher>();
+
+        services.AddSingleton<AuthenticationViewModel>();
+
+        services.AddSingleton<TokenHandler>();
 
         services.AddSingleton<IBuildforgeClient, MockBuildforgeClient>();
 
