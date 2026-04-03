@@ -58,6 +58,44 @@
           }
         }
       }
+    },
+    "/api/v1/authentication": {
+      "get": {
+        "tags": [
+          "Authentication"
+        ],
+        "operationId": "Authentication_GetToken",
+        "parameters": [
+          {
+            "name": "Code",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "AuthenticationPlatform",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/AuthenticationPlatform"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticationResult"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -232,6 +270,42 @@
             "format": "duration"
           }
         }
+      },
+      "AuthenticationResult": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "jwt": {
+            "type": "string"
+          },
+          "userName": {
+            "type": "string"
+          },
+          "utcExpiry": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "AuthenticationPlatform": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "None",
+          "Github"
+        ],
+        "enum": [
+          0,
+          1
+        ]
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "name": "Authorization",
+        "in": "header",
+        "scheme": "Bearer"
       }
     }
   }
