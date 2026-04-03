@@ -19,7 +19,8 @@
       "output": "V1/Client.cs",
       "generateNullableReferenceTypes": true,
       "targetFramework": "net10.0",
-      "newLineBehavior": "LF"
+      "newLineBehavior": "LF",
+      "operationGenerationMode": "MultipleClientsFromOperationId"
     }
   }
 }
