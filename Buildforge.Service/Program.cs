@@ -23,6 +23,9 @@ public partial class Program
         {
             s.ApiGroupNames = ["v1"];
             s.Title = "Buildforge Service";
+        builder.Services.AddAuthorization(options =>
+        {
+            options.FallbackPolicy = options.DefaultPolicy;
         });
 
         var app = builder.Build();
