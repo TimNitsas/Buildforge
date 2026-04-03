@@ -1,0 +1,17 @@
+[
+  {
+    "Name": "App & Service",
+    "Projects": [
+      {
+        "Path": "Buildforge.App\\Buildforge.App.csproj",
+        "Action": "Start",
+        "DebugTarget": "Buildforge.App"
+      },
+      {
+        "Path": "Buildforge.Service\\Buildforge.Service.csproj",
+        "Action": "Start",
+        "DebugTarget": "http"
+      }
+    ]
+  }
+]
