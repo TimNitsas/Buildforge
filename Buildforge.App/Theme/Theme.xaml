@@ -1,6 +1,12 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
     <SolidColorBrush x:Key="Red" Color="Red" />
     <SolidColorBrush x:Key="Blue" Color="CornflowerBlue" />
     <SolidColorBrush x:Key="Green" Color="ForestGreen" />
     <SolidColorBrush x:Key="Gray" Color="SlateGray" />
+
+    <Style TargetType="StatusBar">
+        <Setter Property="Padding" Value="4,0,0,0" />
+    </Style>
+
 </ResourceDictionary>
