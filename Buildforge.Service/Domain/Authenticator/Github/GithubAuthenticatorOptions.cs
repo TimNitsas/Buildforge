@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Buildforge.Service.Domain.Authenticator.Github;
+﻿namespace Buildforge.Service.Domain.Authenticator.Github;
 
 public class GithubAuthenticatorOptions
 {
