@@ -7,9 +7,14 @@ namespace Buildforge.App.ViewModel.Main;
 
 public partial class MainViewModel : ObservableObject, IRecipient<TokenAcquiredEvent>
 {
-    public string? Version { get; }
+    [ObservableProperty]
+    private string? version;
 
-    public object CurrentViewModel => GetCurrentViewModel(TokenHandler);
+    [ObservableProperty]
+    private object? currentViewModel;
+
+    [ObservableProperty]
+    private string? username;
 
     private readonly TokenHandler TokenHandler;
 
@@ -21,12 +26,22 @@ public partial class MainViewModel : ObservableObject, IRecipient<TokenAcquiredE
 
         Version = Assembly.GetExecutingAssembly().GetName().Version?.ToString();
 
-        OnPropertyChanged(nameof(CurrentViewModel));
+        CurrentViewModel = GetCurrentViewModel(TokenHandler);
+
+        if (tokenHandler.TryLoadToken(out var token))
+        {
+            if (token is Token.V1 v1)
+            {
+                Username = v1.Username;
+            }
+        }
     }
 
     public void Receive(TokenAcquiredEvent message)
     {
-        OnPropertyChanged(nameof(CurrentViewModel));
+        Username = message.Username;
+
+        CurrentViewModel = GetCurrentViewModel(TokenHandler);
     }
 
     private static object GetCurrentViewModel(TokenHandler tokenHandler)
