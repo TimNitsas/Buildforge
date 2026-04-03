@@ -15,6 +15,7 @@ global using System.Runtime.InteropServices;
 global using System.Text;
 global using System.Threading.Channels;
 global using System.Windows;
+global using System.Windows.Controls;
 global using System.Windows.Data;
 global using System.Windows.Interop;
 global using System.Windows.Threading;
