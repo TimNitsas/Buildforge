@@ -19,6 +19,8 @@ public partial class Program
 
         builder.Services.AddControllers();
 
+        GithubAuthenticator.Configure(builder);
+
         builder.Services.AddOpenApiDocument(s =>
         {
             s.ApiGroupNames = ["v1"];
