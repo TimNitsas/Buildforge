@@ -19,6 +19,18 @@ public partial class Program
 
         builder.Services.AddControllers();
 
+        builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(o =>
+        {
+            var key = authenticatorSection.Get<AuthenticatorOptions>()!.SymmetricKey;
+
+            o.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key))
+            };
+        });
+
         GithubAuthenticator.Configure(builder);
 
         builder.Services.AddOpenApiDocument(s =>
