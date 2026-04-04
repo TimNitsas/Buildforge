@@ -9,7 +9,7 @@
     <SolidColorBrush x:Key="Gray" Color="SlateGray" />
 
     <Style TargetType="StatusBar">
-        <Setter Property="Padding" Value="4,0,0,0" />
+        <Setter Property="Padding" Value="2,0,0,0" />
     </Style>
 
 </ResourceDictionary>
