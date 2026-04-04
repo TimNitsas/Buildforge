@@ -21,9 +21,6 @@
     mc:Ignorable="d">
     <Window.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Buildforge.App;component/Theme/Theme.xaml" />
-            </ResourceDictionary.MergedDictionaries>
             <c:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
             <DataTemplate DataType="{x:Type auth:AuthenticationViewModel}">
                 <v:AuthenticationView />
