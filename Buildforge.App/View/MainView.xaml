@@ -10,6 +10,7 @@
     xmlns:local="clr-namespace:Buildforge.App"
     xmlns:mainvm="clr-namespace:Buildforge.App.ViewModel.Main"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mi="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
     xmlns:v="clr-namespace:Buildforge.App.View"
     Title="Buildforge"
     Width="800"
