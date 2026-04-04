@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Buildforge.App.ViewModel.Authentication;
 
-public sealed partial class AuthenticationViewModel(IAuthenticationClient client, TokenHandler tokenHandler) : ObservableObject
+public partial class AuthenticationViewModel(IAuthenticationClient client, TokenHandler tokenHandler) : ObservableObject
 {
     public string Url => GetUrl();
 
