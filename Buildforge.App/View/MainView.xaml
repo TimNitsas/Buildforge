@@ -32,7 +32,7 @@
     </Window.Resources>
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">
-            <StatusBarItem Visibility="{Binding Username,Converter={StaticResource StringToVisibilityConverter}}">
+            <StatusBarItem Visibility="{Binding Username, Converter={StaticResource StringToVisibilityConverter}}">
                 <TextBlock Text="{Binding Username, StringFormat={}Logged as {0}}" />
             </StatusBarItem>
             <StatusBarItem>
