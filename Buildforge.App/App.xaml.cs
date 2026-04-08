@@ -1,8 +1,10 @@
 ﻿using Buildforge.App.Cli;
-using Buildforge.App.Domain;
+using Buildforge.App.Domain.Build;
+using Buildforge.App.Domain.Token;
 using Buildforge.App.Event;
 using Buildforge.App.Messaging;
 using Buildforge.App.ViewModel.Authentication;
+using Buildforge.App.ViewModel.Contribution;
 using Buildforge.App.ViewModel.Main;
 using Buildforge.Client.V1;
 using CommunityToolkit.Mvvm.Messaging;
@@ -31,6 +33,8 @@ public partial class App : Application
 
     static App()
     {
+        bool useMock = true;
+
         Dispatcher.CurrentDispatcher.ShutdownFinished += (s, e) =>
         {
             SingleInstanceMutex?.ReleaseMutex();
@@ -46,14 +50,36 @@ public partial class App : Application
 
         services.AddSingleton<AuthenticationViewModel>();
 
+        services.AddSingleton<ContributionViewModel>();
+
         services.AddSingleton<TokenHandler>();
 
-        services.AddSingleton<IBuildClient, MockBuildforgeClient>();
+        services.AddSingleton<BuildHandler>();
 
-        services.AddSingleton<IAuthenticationClient>(sp =>
+        services.AddSingleton(new BuildLocator(Environment.CurrentDirectory));
+
+        if (useMock)
         {
-            return new AuthenticationClient("http://localhost:5157", new HttpClient());
-        });
+            services.AddSingleton<IBuildClient, MockBuildforgeClient>();
+
+            services.AddSingleton<IAuthenticationClient, MockAuthenticationClient>();
+        }
+        else
+        {
+            string service = "http://localhost:5157";
+
+            var client = new HttpClient();
+
+            services.AddSingleton<IBuildClient>(sp =>
+            {
+                return new BuildClient(service, client);
+            });
+
+            services.AddSingleton<IAuthenticationClient>(sp =>
+            {
+                return new AuthenticationClient(service, client);
+            });
+        }
 
         services.AddSingleton<IMessenger>(WeakReferenceMessenger.Default);
 
