@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text.Json;
 
-namespace Buildforge.App.Domain;
+namespace Buildforge.App.Domain.Token;
 
 public sealed class TokenHandler
 {
