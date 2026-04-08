@@ -44,6 +44,29 @@
                 <TextBlock Text="{Binding Version, StringFormat={}Version {0}}" />
             </StatusBarItem>
         </StatusBar>
+        <Grid DockPanel.Dock="Left">
+            <StackPanel Margin="4" Orientation="Vertical">
+                <StackPanel.Resources>
+                    <Style TargetType="ctrl:NavigationIcon">
+                        <Setter Property="Padding" Value="4,0,4,4" />
+                    </Style>
+                </StackPanel.Resources>
+                <ctrl:NavigationIcon
+                    Command="{Binding ShowBuildsCommand}"
+                    IconKind="Hammer"
+                    Tooltip="Builds" />
+                <ctrl:NavigationIcon
+                    Command="{Binding ShowContributionsCommand}"
+                    IconKind="UsersGroup"
+                    Tooltip="Contributions" />
+                <ctrl:NavigationIcon IconKind="Star" Tooltip="Stamped Builds" />
+                <ctrl:NavigationIcon IconKind="User" Tooltip="User Builds" />
+                <ctrl:NavigationIcon IconKind="TestTube" Tooltip="Qa Requests" />
+                <ctrl:NavigationIcon IconKind="Download" Tooltip="Tasks" />
+                <ctrl:NavigationIcon IconKind="SonyPlaystation" Tooltip="Device Management" />
+                <ctrl:NavigationIcon IconKind="Gear" Tooltip="Settings" />
+            </StackPanel>
+        </Grid>
         <ContentControl Content="{Binding CurrentViewModel}" />
     </DockPanel>
 </Window>
