@@ -24,6 +24,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Buildforge.App;component/View/BuildView.BuildStatus.xaml" />
+                <ResourceDictionary Source="/Buildforge.App;component/View/BuildView.ContextMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <c:HumanizeDateTimeConverter x:Key="HumanizeDateTimeConverter" />
             <c:HumanizeBytesConverter x:Key="HumanizeBytesConverter" />
@@ -35,6 +36,11 @@
         HeadersVisibility="Column"
         ItemsSource="{Binding Builds}"
         SelectionUnit="FullRow">
+        <DataGrid.RowStyle>
+            <Style TargetType="DataGridRow">
+                <Setter Property="ContextMenu" Value="{StaticResource RowContextMenu}" />
+            </Style>
+        </DataGrid.RowStyle>
         <DataGrid.Columns>
             <DataGridTemplateColumn Header="Name">
                 <DataGridTemplateColumn.CellTemplate>
