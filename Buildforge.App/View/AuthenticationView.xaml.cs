@@ -1,4 +1,4 @@
-﻿using Buildforge.App.Domain;
+﻿using Buildforge.App.Domain.Token;
 using Buildforge.App.ViewModel.Authentication;
 using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.Wpf;
