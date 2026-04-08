@@ -1,5 +1,5 @@
 ﻿#if DEBUG
-using Buildforge.App.Domain;
+using Buildforge.App.Domain.Token;
 using Buildforge.Client.V1;
 
 namespace Buildforge.App.ViewModel.Authentication;
