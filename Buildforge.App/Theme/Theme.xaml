@@ -8,8 +8,8 @@
     <SolidColorBrush x:Key="Green" Color="ForestGreen" />
     <SolidColorBrush x:Key="Gray" Color="SlateGray" />
 
-    <Style TargetType="StatusBar">
-        <Setter Property="Padding" Value="2,0,0,0" />
+    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#737373" />
+    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="White" />
     <Style TargetType="DataGrid">
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="GridLinesVisibility" Value="None" />
