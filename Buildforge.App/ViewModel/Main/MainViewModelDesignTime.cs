@@ -1,5 +1,5 @@
 ﻿using Bogus;
-using Buildforge.App.Domain;
+using Buildforge.App.Domain.Token;
 
 namespace Buildforge.App.ViewModel.Main;
 
