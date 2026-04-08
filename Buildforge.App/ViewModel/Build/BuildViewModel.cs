@@ -9,7 +9,7 @@ public partial class BuildViewModel(IBuildClient client) : ObservableObject
     [RelayCommand]
     public async Task Load()
     {
-        var buildResult = await client.GetBuildAsync(0);
+        var buildResult = await client.GetBuildsAsync(0);
 
         if (buildResult is null)
         {
