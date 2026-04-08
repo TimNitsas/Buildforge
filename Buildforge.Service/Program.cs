@@ -50,11 +50,6 @@ public partial class Program
             s.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor(JwtBearerDefaults.AuthenticationScheme));
         });
 
-        builder.Services.AddAuthorization(options =>
-        {
-            options.FallbackPolicy = options.DefaultPolicy;
-        });
-
         var app = builder.Build();
 
         app.MapControllers();
