@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Buildforge.App.Domain;
+namespace Buildforge.App.Domain.Token;
 
 [JsonPolymorphic(TypeDiscriminatorPropertyName = "version")]
 [JsonDerivedType(typeof(V1), "v1")]
