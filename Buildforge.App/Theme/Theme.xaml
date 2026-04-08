@@ -10,6 +10,19 @@
 
     <Style TargetType="StatusBar">
         <Setter Property="Padding" Value="2,0,0,0" />
+    <Style TargetType="DataGrid">
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="GridLinesVisibility" Value="None" />
+        <Setter Property="RowBackground" Value="White" />
+        <Setter Property="AlternatingRowBackground" Value="#F9F9F9" />
     </Style>
 
+    <Style TargetType="DataGridCell">
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="BorderBrush" Value="Transparent" />
+                <Setter Property="BorderThickness" Value="0" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>
