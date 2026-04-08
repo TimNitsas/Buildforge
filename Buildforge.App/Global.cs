@@ -19,3 +19,4 @@ global using System.Windows.Controls;
 global using System.Windows.Data;
 global using System.Windows.Interop;
 global using System.Windows.Threading;
+global using System.Windows.Input;
