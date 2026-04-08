@@ -1,4 +1,5 @@
-﻿using Buildforge.Client.V1;
+﻿using Buildforge.App.Core.Command.Download;
+using Buildforge.Client.V1;
 
 namespace Buildforge.App.ViewModel.Build;
 
@@ -23,6 +24,8 @@ public partial class BuildItemViewModel : ObservableObject
     private string? platform;
 
     public ObservableCollection<BuildItemContributionViewModel> Contributions { get; }
+
+    public ICommand DownloadCommand { get; }
 
     public BuildItemViewModel(Client.V1.Build build)
     {
@@ -50,5 +53,7 @@ public partial class BuildItemViewModel : ObservableObject
         Platform = build.Platform;
 
         Id = build.Id;
+
+        DownloadCommand = new DownloadBuildCommand(Id);
     }
 }
