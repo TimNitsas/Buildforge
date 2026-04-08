@@ -7,7 +7,7 @@ public partial class MockBuildforgeClient : IBuildClient
 {
     private static readonly Random Random = new Random(42);
 
-    public async Task<BuildResult> GetBuildAsync(int? skip = null, CancellationToken cancellationToken = default)
+    public async Task<BuildResult> GetBuildsAsync(int? skip = null, CancellationToken cancellationToken = default)
     {
         await Task.Yield();
 
