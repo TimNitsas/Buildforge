@@ -8,7 +8,7 @@ public partial class BuildItemViewModel : ObservableObject
     private string? name;
 
     [ObservableProperty]
-    private string? id;
+    private string id;
 
     [ObservableProperty]
     private BuildItemStatusViewModel? status;
