@@ -29,7 +29,12 @@
             <c:HumanizeBytesConverter x:Key="HumanizeBytesConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
-    <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Builds}">
+    <DataGrid
+        AutoGenerateColumns="False"
+        CanUserAddRows="False"
+        HeadersVisibility="Column"
+        ItemsSource="{Binding Builds}"
+        SelectionUnit="FullRow">
         <DataGrid.Columns>
             <DataGridTemplateColumn Header="Name">
                 <DataGridTemplateColumn.CellTemplate>
