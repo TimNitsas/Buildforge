@@ -1,6 +1,6 @@
-﻿namespace Buildforge.Service.Domain.Build;
+﻿namespace Buildforge.Service.Domain.Misc;
 
-public class FakeStream(int length) : Stream
+public sealed class FakeStream(int length) : Stream
 {
     private readonly Random Random = new();
 
