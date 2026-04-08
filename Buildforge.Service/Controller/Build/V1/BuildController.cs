@@ -39,4 +39,17 @@ public class BuildController : ControllerBase
             await Task.Delay(2000, cancellationToken);
         }
     }
+
+    public class DownloadBuildQueryParameters
+    {
+        public string BuildId { get; set; } = string.Empty;
+    }
+
+    [HttpGet("download")]
+    public async Task<IActionResult> DownloadBuild([FromQuery] DownloadBuildQueryParameters query)
+    {
+        var stream = new FakeStream(1 * 1024 * 1024);
+
+        return File(stream, "application/octet-stream", $"{query.BuildId}.bin");
+    }
 }
