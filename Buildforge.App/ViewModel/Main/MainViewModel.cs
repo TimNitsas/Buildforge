@@ -1,6 +1,7 @@
 ﻿using Buildforge.App.Domain.Token;
 using Buildforge.App.Event;
 using Buildforge.App.ViewModel.Authentication;
+using Buildforge.App.ViewModel.Contribution;
 using CommunityToolkit.Mvvm.Messaging;
 
 namespace Buildforge.App.ViewModel.Main;
@@ -35,6 +36,23 @@ public partial class MainViewModel : ObservableObject, IRecipient<TokenAcquiredE
                 Username = v1.Username;
             }
         }
+    }
+
+    private void SetMainViewModel<T>() where T : notnull
+    {
+        CurrentViewModel = App.Services.GetRequiredService<T>();
+    }
+
+    [RelayCommand]
+    private void ShowBuilds()
+    {
+        SetMainViewModel<BuildViewModel>();
+    }
+
+    [RelayCommand]
+    private void ShowContributions()
+    {
+        SetMainViewModel<ContributionViewModel>();
     }
 
     public void Receive(TokenAcquiredEvent message)
