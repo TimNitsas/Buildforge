@@ -1,4 +1,4 @@
-﻿using Buildforge.App.Domain;
+﻿using Buildforge.App.Domain.Token;
 using Buildforge.App.Event;
 using Buildforge.App.ViewModel.Authentication;
 using CommunityToolkit.Mvvm.Messaging;
