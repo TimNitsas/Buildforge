@@ -1,4 +1,4 @@
-﻿using Buildforge.App.Domain;
+﻿using Buildforge.App.Domain.Token;
 using Buildforge.App.Event;
 using Buildforge.Client.V1;
 using System.Web;
