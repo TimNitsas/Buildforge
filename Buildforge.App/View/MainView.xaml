@@ -6,6 +6,7 @@
     xmlns:authvm="clr-namespace:Buildforge.App.ViewModel.Authentication"
     xmlns:build="clr-namespace:Buildforge.App.ViewModel.Build"
     xmlns:c="clr-namespace:Buildforge.App.Converter"
+    xmlns:contribution="clr-namespace:Buildforge.App.ViewModel.Contribution"
     xmlns:ctrl="clr-namespace:Buildforge.App.Control"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Buildforge.App"
@@ -28,6 +29,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type build:BuildViewModel}">
                 <v:BuildView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type contribution:ContributionViewModel}">
+                <v:ContributionView />
             </DataTemplate>
         </ResourceDictionary>
     </Window.Resources>
