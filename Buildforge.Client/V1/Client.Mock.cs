@@ -103,4 +103,9 @@ public partial class MockBuildforgeClient : IBuildClient
 
         return Task.FromResult<ICollection<BuildStatus>>(Array.Empty<BuildStatus>());
     }
+
+    public Task<FileResponse> DownloadBuildAsync(string? buildId = null, CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
+    }
 }
