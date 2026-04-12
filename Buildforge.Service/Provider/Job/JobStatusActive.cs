@@ -1,5 +1,5 @@
 ﻿namespace Buildforge.Service.Provider.Job;
 
-public sealed class JobStatusActive : BuildStatus
+public sealed class JobStatusActive : JobStatus
 {
 }
