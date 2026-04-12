@@ -1,6 +1,6 @@
 ﻿namespace Buildforge.Service.Provider.Job;
 
-public sealed class JobStatusSuccess : BuildStatus
+public sealed class JobStatusSuccess : JobStatus
 {
     public required TimeSpan BuildTime { get; init; }
 
