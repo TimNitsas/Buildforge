@@ -1,43 +1,32 @@
 ﻿using Buildforge.Service.Controller.Build.V1.Model;
-using Buildforge.Service.Domain.Build;
-using Microsoft.AspNetCore.Authorization;
+using Buildforge.Service.Domain.Misc;
 
 namespace Buildforge.Service.Controller.Build.V1;
 
 [ApiController]
-[Authorize]
 [Route("api/v1/builds")]
 [ApiExplorerSettings(GroupName = "v1")]
-public class BuildController : ControllerBase
+public class BuildController(BuildRepository buildRepository) : ControllerBase
 {
     public class GetBuildQueryParameters
     {
-        public uint Skip { get; set; }
+        public int Skip { get; set; }
     }
 
     [HttpGet]
-    public async Task<BuildResult> GetBuilds([FromQuery] GetBuildQueryParameters query)
+    public async Task<BuildResult> GetBuilds([FromQuery] GetBuildQueryParameters query, CancellationToken ct)
     {
-        await Task.Yield();
-
-        return new BuildResult()
+        var buildResult = new BuildResult()
         {
             Builds = []
         };
-    }
 
-    [HttpGet("updates")]
-    public async IAsyncEnumerable<BuildStatus> GetUpdates([EnumeratorCancellation] CancellationToken cancellationToken)
-    {
-        while (!cancellationToken.IsCancellationRequested)
+        foreach (var item in await buildRepository.GetBuilds(ct).Skip(query.Skip).ToListAsync(cancellationToken: ct))
         {
-            yield return new BuildStatusFailed()
-            {
-                Reason = string.Empty
-            };
-
-            await Task.Delay(2000, cancellationToken);
+            buildResult.Builds.Add(Model.Build.FromDomain(item));
         }
+
+        return buildResult;
     }
 
     public class DownloadBuildQueryParameters
