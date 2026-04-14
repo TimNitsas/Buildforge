@@ -7,14 +7,19 @@ public sealed class CrashBridgeService(ICrashProvider crashProvider, EventPublis
 {
     protected override async Task ExecuteAsync(CancellationToken ct)
     {
+        HashSet<string> crashes = [];
+
         while (!ct.IsCancellationRequested)
         {
             foreach (var crash in crashProvider.GetCrashes(ct))
             {
-                await eventPublisher.Publish(new BuildCrashedEvent()
+                if (crashes.Add(crash.CrashId))
                 {
-                    Data = crash
-                });
+                    await eventPublisher.Publish(new BuildCrashedEvent()
+                    {
+                        Data = crash
+                    });
+                }
             }
 
             await Task.Delay(1_000, ct);
