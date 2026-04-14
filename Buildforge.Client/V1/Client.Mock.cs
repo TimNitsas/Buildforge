@@ -94,17 +94,27 @@ public partial class MockBuildforgeClient : IBuildClient
         }
     ];
 
-    public Task<ICollection<BuildStatus>> GetUpdatesAsync(CancellationToken cancellationToken)
+    public Task<ICollection<Build>> SubscribeAsync(CancellationToken cancellationToken)
     {
-        if (Random.NextDouble() > 0.5f)
+        if (Random.NextDouble() > 0.1f)
         {
             throw new Exception("Mocked");
         }
 
-        return Task.FromResult<ICollection<BuildStatus>>(Array.Empty<BuildStatus>());
+        return Task.FromResult<ICollection<Build>>(Array.Empty<Build>());
+    }
+
+    public Task SubscribeSseAsync(CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
     }
 
     public Task<FileResponse> DownloadBuildAsync(string? buildId = null, CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
+    }
+
+    public IAsyncEnumerable<Build> GetBuildSse(CancellationToken ct)
     {
         throw new NotImplementedException();
     }
