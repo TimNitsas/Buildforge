@@ -79,9 +79,7 @@ public partial class App : Application
             {
                 return new AuthenticationClient(service, client);
             });
-        }
 
-        services.AddSingleton<IMessenger>(WeakReferenceMessenger.Default);
 
         Services = services.BuildServiceProvider();
     }
