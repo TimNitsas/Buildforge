@@ -1,4 +1,4 @@
-﻿using Buildforge.Service.Test.Core;
+﻿using Buildforge.Service.Test.Build.Core;
 using Microsoft.AspNetCore.WebUtilities;
 
 namespace Buildforge.Service.Test.Build;
