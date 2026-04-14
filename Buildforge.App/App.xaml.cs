@@ -160,9 +160,9 @@ public partial class App : Application
 
             await retryPolicy.ExecuteAsync(async () =>
             {
-                foreach (var item in await client.GetUpdatesAsync(ct))
+                await foreach (var item in client.SubscribeSseImpl(ct))
                 {
-                    eventPublisher.Publish(item);
+                    ConvertSse(item);
                 }
             });
 
