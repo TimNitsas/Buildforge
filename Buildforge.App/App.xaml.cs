@@ -10,9 +10,11 @@ using Buildforge.Client.V1;
 using CommunityToolkit.Mvvm.Messaging;
 using Polly;
 using System.Net.Http;
+using System.Runtime.Intrinsics;
 using Velopack;
 using Velopack.Exceptions;
 using Velopack.Sources;
+using static Vanara.PInvoke.Kernel32.PSS_HANDLE_ENTRY;
 
 namespace Buildforge.App;
 
@@ -33,7 +35,7 @@ public partial class App : Application
 
     static App()
     {
-        bool useMock = true;
+        bool useMock = false;
 
         Dispatcher.CurrentDispatcher.ShutdownFinished += (s, e) =>
         {
@@ -162,11 +164,36 @@ public partial class App : Application
             {
                 await foreach (var item in client.SubscribeSseImpl(ct))
                 {
-                    ConvertSse(item);
+                    AdaptEvent(item);
                 }
             });
 
             await Task.Delay(TimeSpan.FromSeconds(1), ct);
+        }
+    }
+
+    private static void AdaptEvent(Client.V1.Event item)
+    {
+        if (item is Client.V1.BuildChangedEvent buildChangedEvent)
+        {
+            WeakReferenceMessenger.Default.Send(new Event.BuildChangedEvent
+            {
+                Inner = buildChangedEvent.Data
+            });
+        }
+        else if (item is Client.V1.BuildCrashEvent buildCrashEvent)
+        {
+            WeakReferenceMessenger.Default.Send(new Event.BuildCrashedEvent
+            {
+                Inner = buildCrashEvent.Data
+            });
+        }
+        else if (item is Client.V1.BuildCreatedEvent buildCreatedEvent)
+        {
+            WeakReferenceMessenger.Default.Send(new Event.BuildCreatedEvent
+            {
+                Inner = buildCreatedEvent.Data
+            });
         }
     }
 
