@@ -1,4 +1,4 @@
-﻿namespace Buildforge.Service.Test.Core;
+﻿namespace Buildforge.Service.Test.Build.Core;
 
 public class BuildforgeWebApplicationFactory<TProgram> : WebApplicationFactory<TProgram> where TProgram : class
 {

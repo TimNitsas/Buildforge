@@ -1,4 +1,4 @@
-﻿namespace Buildforge.Service.Test.Core;
+﻿namespace Buildforge.Service.Test.Build.Core;
 
 public sealed class BuildforgeAuthenticationHandler(IOptionsMonitor<AuthenticationSchemeOptions> options, ILoggerFactory logger, UrlEncoder encoder) : AuthenticationHandler<AuthenticationSchemeOptions>(options, logger, encoder)
 {
