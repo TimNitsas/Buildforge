@@ -4,7 +4,7 @@ public sealed class BuildChangedEvent : Event
 {
     public required Controller.Build.V1.Model.Build Data { get; set; }
 
-    public static BuildChangedEvent? FromDomain(Domain.Event.Model.BuildChangedEvent e)
+    public static BuildChangedEvent FromDomain(Domain.Event.Model.BuildChangedEvent e)
     {
         return new BuildChangedEvent()
         {
