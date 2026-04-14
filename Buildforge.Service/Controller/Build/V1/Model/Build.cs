@@ -20,7 +20,7 @@ public sealed class Build
 
     public required List<BuildCrash> Crashes { get; init; }
 
-    public static Build? FromDomain(Domain.Build.Build item)
+    public static Build FromDomain(Domain.Build.Build item)
     {
         if (item is Domain.Build.V1.Build v1)
         {
