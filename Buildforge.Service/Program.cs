@@ -17,6 +17,8 @@ public partial class Program
 
         builder.Services.AddOptionsWithValidateOnStart<AuthenticatorOptions>().Bind(authenticatorSection).ValidateDataAnnotations();
 
+        builder.Services.AddOptionsWithValidateOnStart<DatabaseOptions>().Bind(builder.Configuration.GetSection(nameof(DatabaseOptions))).ValidateDataAnnotations();
+
         builder.Services.AddControllers();
 
         builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(o =>
