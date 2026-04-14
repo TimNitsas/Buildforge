@@ -2,9 +2,9 @@
 
 public sealed class Job
 {
-    public required DateTime StartTime { get; init; }
+    public required DateTime StartTime { get; set; }
 
-    public required JobStatus Status { get; init; }
+    public required JobStatus Status { get; set; }
 
     public required string Id { get; set; }
 
