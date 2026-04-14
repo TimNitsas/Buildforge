@@ -147,7 +147,7 @@ public partial class App : Application
     {
         var client = Services.GetRequiredService<IBuildClient>();
 
-        var eventPublisher = Services.GetRequiredService<EventPublisher>();
+        var messenger = Services.GetRequiredService<IMessenger>();
 
         static TimeSpan RetryLogic(int attempt)
         {
