@@ -1,6 +1,7 @@
 ﻿using Buildforge.App.Domain.Token;
 using Buildforge.App.Event;
 using Buildforge.Client.V1;
+using CommunityToolkit.Mvvm.Messaging;
 using System.Web;
 
 namespace Buildforge.App.ViewModel.Authentication;
@@ -29,7 +30,7 @@ public partial class AuthenticationViewModel(IAuthenticationClient client, Token
 
         Username = result.Username;
 
-        App.Services.GetRequiredService<EventPublisher>().Publish(new TokenAcquiredEvent()
+        App.Services.GetRequiredService<IMessenger>().Send(new TokenAcquiredEvent()
         {
             Username = result.Username,
         });
