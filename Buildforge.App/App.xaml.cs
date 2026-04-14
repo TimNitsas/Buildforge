@@ -145,7 +145,7 @@ public partial class App : Application
 
     private static async Task LongPollUpdates(CancellationToken ct)
     {
-        var client = Services.GetRequiredService<IBuildClient>();
+        var client = Services.GetRequiredService<IEventClient>();
 
         var messenger = Services.GetRequiredService<IMessenger>();
 
