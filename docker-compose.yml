@@ -1,7 +1,7 @@
 services:
   postgres:
     image: postgres:18.3
-    restart: always
+    restart: unless-stopped
     environment:
       POSTGRES_PASSWORD: password
       POSTGRES_HOST_AUTH_METHOD: trust
