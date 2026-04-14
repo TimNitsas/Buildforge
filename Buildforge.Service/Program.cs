@@ -1,5 +1,12 @@
+using Buildforge.Service.Database;
 using Buildforge.Service.Domain.Authenticator;
 using Buildforge.Service.Domain.Authenticator.Github;
+using Buildforge.Service.Provider.Contribution;
+using Buildforge.Service.Provider.Crash;
+using Buildforge.Service.Provider.Crash.Simulation;
+using Buildforge.Service.Provider.Job;
+using Buildforge.Service.Provider.Job.Simulation;
+using Buildforge.Service.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using NSwag;
@@ -32,6 +39,22 @@ public partial class Program
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key))
             };
         });
+
+        builder.Services.AddHostedService<JobBridgeService>();
+
+        builder.Services.AddHostedService<CrashBridgeService>();
+
+        builder.Services.AddSingleton<BuildRepository>();
+
+        builder.Services.AddSingleton<ICrashProvider, CrashProviderSimulator>();
+
+        builder.Services.AddSingleton<ContributionProvider>();
+
+        builder.Services.AddSingleton<EventPublisher>();
+
+        builder.Services.AddSingleton<Database.Database>();
+
+        builder.Services.AddSingleton<IJobProvider>(new JobProviderSimulator(100));
 
         GithubAuthenticator.Configure(builder);
 
