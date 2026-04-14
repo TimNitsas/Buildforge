@@ -80,6 +80,11 @@ public partial class App : Application
                 return new AuthenticationClient(service, client);
             });
 
+            services.AddSingleton<IEventClient>(sp =>
+            {
+                return new EventClient(service, client);
+            });
+        }
 
         Services = services.BuildServiceProvider();
     }
