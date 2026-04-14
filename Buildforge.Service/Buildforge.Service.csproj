@@ -15,6 +15,7 @@
 		<PackageReference Include="Octokit" Version="14.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="10.4.0" />
 		<PackageReference Include="NSwag.AspNetCore" Version="14.6.3" />
+		<PackageReference Include="RandomFriendlyNameGenerator" Version="1.0.9" />
 		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.17.0" />
 		<PackageReference Include="NSwag.MSBuild" Version="14.6.3">
 			<PrivateAssets>all</PrivateAssets>
