@@ -42,6 +42,8 @@ public partial class App : Application
 
         var services = new ServiceCollection();
 
+        services.AddSingleton<IMessenger>(WeakReferenceMessenger.Default);
+
         services.AddSingleton<MainViewModel>();
 
         services.AddSingleton<BuildViewModel>();
