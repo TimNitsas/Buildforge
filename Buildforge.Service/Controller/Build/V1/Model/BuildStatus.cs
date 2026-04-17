@@ -11,14 +11,14 @@ public abstract class BuildStatus
 {
     public DateTime StartTime { get; set; }
 
-    public static BuildStatus FromDomain(Domain.Build.V1.Build item)
+    public static BuildStatus FromDomain(Repository.Build.V1.Build item)
     {
         return item.Status switch
         {
-            Domain.Build.V1.BuildStatusActive a => new V1.Model.BuildStatusActive(),
-            Domain.Build.V1.BuildStatusFailed f => new V1.Model.BuildStatusFailed() { Reason = f.Reason },
-            Domain.Build.V1.BuildStatusQueued q => new V1.Model.BuildStatusQueued(),
-            Domain.Build.V1.BuildStatusSuccess s => new V1.Model.BuildStatusSuccess() { BuildTime = s.BuildTime, Bytes = s.Bytes },
+            Repository.Build.V1.BuildStatusActive a => new V1.Model.BuildStatusActive() { EstimatedTimeToCompletion = a.EstimatedTimeToCompletion },
+            Repository.Build.V1.BuildStatusFailed f => new V1.Model.BuildStatusFailed() { Reason = f.Reason },
+            Repository.Build.V1.BuildStatusQueued q => new V1.Model.BuildStatusQueued(),
+            Repository.Build.V1.BuildStatusSuccess s => new V1.Model.BuildStatusSuccess() { BuildTime = s.BuildTime, Bytes = s.Bytes },
             _ => throw new NotImplementedException()
         };
     }
