@@ -6,6 +6,7 @@ using Buildforge.Service.Provider.Crash;
 using Buildforge.Service.Provider.Crash.Simulation;
 using Buildforge.Service.Provider.Job;
 using Buildforge.Service.Provider.Job.Simulation;
+using Buildforge.Service.Repository.Build;
 using Buildforge.Service.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -40,15 +41,13 @@ public partial class Program
             };
         });
 
-        builder.Services.AddHostedService<JobBridgeService>();
-
-        builder.Services.AddHostedService<CrashBridgeService>();
+        RegisterBackgroundServices(builder);
 
         builder.Services.AddSingleton<BuildRepository>();
 
         builder.Services.AddSingleton<ICrashProvider, CrashProviderSimulator>();
 
-        builder.Services.AddSingleton<ContributionProvider>();
+        builder.Services.AddSingleton<IContributionProvider, ContributionProvider>();
 
         builder.Services.AddSingleton<EventPublisher>();
 
@@ -84,5 +83,14 @@ public partial class Program
         app.UseSwaggerUi();
 
         app.Run();
+    }
+
+    private static void RegisterBackgroundServices(WebApplicationBuilder builder)
+    {
+        builder.Services.AddHostedService<JobBridgeService>();
+
+        builder.Services.AddHostedService<ContributionBridgeService>();
+
+        builder.Services.AddHostedService<CrashBridgeService>();
     }
 }
