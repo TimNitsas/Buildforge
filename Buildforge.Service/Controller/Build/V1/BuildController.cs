@@ -1,5 +1,6 @@
 ﻿using Buildforge.Service.Controller.Build.V1.Model;
 using Buildforge.Service.Domain.Misc;
+using Buildforge.Service.Repository.Build;
 
 namespace Buildforge.Service.Controller.Build.V1;
 
