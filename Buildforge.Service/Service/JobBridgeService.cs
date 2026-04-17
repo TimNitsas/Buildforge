@@ -86,7 +86,7 @@ public class JobBridgeService(IJobProvider jobProvider, BuildRepository buildRep
         JobStatusSuccess s => new BuildStatusSuccess() { BuildTime = s.BuildTime, Bytes = s.Bytes },
         JobStatusFailed f => new BuildStatusFailed() { Reason = f.Reason },
         JobStatusQueued q => new BuildStatusQueued(),
-        JobStatusActive a => new BuildStatusActive(),
+        JobStatusActive a => new BuildStatusActive() { EstimatedTimeToCompletion = a.EstimatedTimeToCompletion },
         _ => throw new NotImplementedException()
     };
 }
