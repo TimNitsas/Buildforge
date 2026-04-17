@@ -83,7 +83,7 @@ public class JobBridgeService(IJobProvider jobProvider, BuildRepository buildRep
 
     private static BuildStatus FromJob(Job job) => job.Status switch
     {
-        JobStatusSuccess s => new BuildStatusActive(),
+        JobStatusSuccess s => new BuildStatusSuccess() { BuildTime = s.BuildTime, Bytes = s.Bytes },
         JobStatusFailed f => new BuildStatusFailed() { Reason = f.Reason },
         JobStatusQueued q => new BuildStatusQueued(),
         JobStatusActive a => new BuildStatusActive(),
