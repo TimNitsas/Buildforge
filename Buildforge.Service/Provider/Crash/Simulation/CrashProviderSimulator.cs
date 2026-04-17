@@ -1,4 +1,5 @@
 ﻿using Bogus;
+using Buildforge.Service.Repository.Build;
 using System.Collections.Concurrent;
 
 namespace Buildforge.Service.Provider.Crash.Simulation;
