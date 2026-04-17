@@ -10,7 +10,7 @@ public sealed class BuildCrash
 
     public required TimeSpan PlayTime { get; init; }
 
-    public static IEnumerable<BuildCrash> FromDomain(Domain.Build.V1.Build item)
+    public static IEnumerable<BuildCrash> FromDomain(Repository.Build.V1.Build item)
     {
         return item.BuildCrashes.Select(c => new BuildCrash()
         {
