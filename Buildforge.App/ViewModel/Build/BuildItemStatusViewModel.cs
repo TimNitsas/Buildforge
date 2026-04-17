@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.Messaging;
 
 namespace Buildforge.App.ViewModel.Build;
 
-public abstract partial class BuildItemStatusViewModel : ObservableObject, IRecipient<TickTimeMessage>
+public abstract partial class BuildItemStatusViewModel : ObservableObject, IRecipient<TickTimeRefreshEvent>
 {
     [ObservableProperty]
     private DateTime startTime;
@@ -15,8 +15,15 @@ public abstract partial class BuildItemStatusViewModel : ObservableObject, IReci
         WeakReferenceMessenger.Default.RegisterAll(this);
     }
 
-    public void Receive(TickTimeMessage message)
+    public void Receive(TickTimeRefreshEvent message)
     {
         OnPropertyChanged(nameof(StartTime));
+
+        OnReceive(message);
+    }
+
+    protected virtual void OnReceive(TickTimeRefreshEvent message)
+    {
+        return;
     }
 }
