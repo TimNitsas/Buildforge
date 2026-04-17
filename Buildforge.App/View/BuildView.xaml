@@ -35,6 +35,7 @@
         CanUserAddRows="False"
         HeadersVisibility="Column"
         ItemsSource="{Binding Builds}"
+        MinRowHeight="22"
         SelectionUnit="FullRow">
         <DataGrid.RowStyle>
             <Style TargetType="DataGridRow">
