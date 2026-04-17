@@ -143,7 +143,7 @@ public partial class App : Application
 
         while (!ct.IsCancellationRequested)
         {
-            messenger.Send(TickTimeMessage.Instance);
+            messenger.Send(TickTimeRefreshEvent.Instance);
 
             await Task.Delay(TimeSpan.FromSeconds(5), ct);
         }
