@@ -1,6 +1,6 @@
-﻿namespace Buildforge.Service.Domain.Build.V1;
+﻿namespace Buildforge.Service.Repository.Build.V1;
 
-public sealed class Build : Domain.Build.Build
+public sealed class Build : Repository.Build.Build
 {
     public required string Name { get; set; }
 

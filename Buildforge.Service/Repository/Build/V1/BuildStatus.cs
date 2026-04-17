@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Buildforge.Service.Domain.Build.V1;
+namespace Buildforge.Service.Repository.Build.V1;
 
 [JsonPolymorphic(TypeDiscriminatorPropertyName = "Type")]
 [JsonDerivedType(typeof(BuildStatusActive), "active")]
