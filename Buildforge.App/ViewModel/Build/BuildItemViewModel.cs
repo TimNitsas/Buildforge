@@ -1,10 +1,11 @@
 ﻿using Buildforge.App.Core.Command.Download;
+using Buildforge.App.Domain.Build;
 using Buildforge.Client.V1;
 using CommunityToolkit.Mvvm.Messaging;
 
 namespace Buildforge.App.ViewModel.Build;
 
-public partial class BuildItemViewModel : ObservableObject, IRecipient<Event.BuildChangedEvent>, IRecipient<Event.BuildCrashedEvent>
+public partial class BuildItemViewModel : ObservableObject, IRecipient<Event.BuildChangedEvent>, IRecipient<Event.BuildCrashedEvent>, IRecipient<BuildHandlerDownloadProgressEvent>
 {
     [ObservableProperty]
     private string? name;
@@ -26,6 +27,12 @@ public partial class BuildItemViewModel : ObservableObject, IRecipient<Event.Bui
 
     [ObservableProperty]
     private int crashCount;
+
+    [ObservableProperty]
+    private string? progressText;
+
+    [ObservableProperty]
+    private double? progressValue;
 
     public ObservableCollection<BuildItemContributionViewModel> Contributions { get; }
 
@@ -86,5 +93,17 @@ public partial class BuildItemViewModel : ObservableObject, IRecipient<Event.Bui
         }
 
         Patch(message.Inner);
+    }
+
+    public void Receive(BuildHandlerDownloadProgressEvent message)
+    {
+        if (!message.BuildId.Equals(Id))
+        {
+            return;
+        }
+
+        ProgressValue = message.ProgressPercentage;
+
+        ProgressText = $"{message.SpeedKbps} ({message.EstimatedEta})";
     }
 }
