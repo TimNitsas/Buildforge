@@ -2,4 +2,5 @@
 
 public sealed class JobStatusActive : JobStatus
 {
+    public required DateTime EstimatedTimeToCompletion { get; init; }
 }
