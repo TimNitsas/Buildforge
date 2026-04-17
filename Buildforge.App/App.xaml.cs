@@ -65,6 +65,10 @@ public partial class App : Application
             services.AddSingleton<IBuildClient, MockBuildforgeClient>();
 
             services.AddSingleton<IAuthenticationClient, MockAuthenticationClient>();
+
+            services.AddSingleton<IEventClient, MockEventClient>();
+
+            services.AddSingleton<IContributionClient, MockContributionClient>();
         }
         else
         {
