@@ -85,7 +85,11 @@ public partial class MockBuildforgeClient : IBuildClient
     [
         () => new BuildStatusFailed(),
         () => new BuildStatusQueued(),
-        () => new BuildStatusActive(),
+        () => new BuildStatusActive()
+        {
+            StartTime = DateTime.UtcNow - TimeSpan.FromSeconds(Random.Next(240, 480)),
+            EstimatedTimeToCompletion = DateTime.UtcNow + TimeSpan.FromSeconds(Random.Next(240, 480))
+        },
         () => new BuildStatusSuccess()
         {
             BuildTime = TimeSpan.FromMinutes(Random.Next(1, 240)),
