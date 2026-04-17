@@ -2,5 +2,5 @@
 
 public sealed class BuildCreatedEvent : BaseEvent
 {
-    public required Build.Build Build { get; init; }
+    public required Repository.Build.Build Build { get; init; }
 }
