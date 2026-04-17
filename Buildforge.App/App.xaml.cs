@@ -1,7 +1,6 @@
 ﻿using Buildforge.App.Cli;
 using Buildforge.App.Domain.Build;
 using Buildforge.App.Domain.Token;
-using Buildforge.App.Event;
 using Buildforge.App.Messaging;
 using Buildforge.App.ViewModel.Authentication;
 using Buildforge.App.ViewModel.Contribution;
@@ -10,11 +9,9 @@ using Buildforge.Client.V1;
 using CommunityToolkit.Mvvm.Messaging;
 using Polly;
 using System.Net.Http;
-using System.Runtime.Intrinsics;
 using Velopack;
 using Velopack.Exceptions;
 using Velopack.Sources;
-using static Vanara.PInvoke.Kernel32.PSS_HANDLE_ENTRY;
 
 namespace Buildforge.App;
 
