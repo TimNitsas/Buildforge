@@ -1,5 +1,6 @@
-﻿using Buildforge.Service.Domain.Build.V1;
-using Buildforge.Service.Provider.Job;
+﻿using Buildforge.Service.Provider.Job;
+using Buildforge.Service.Repository.Build;
+using Buildforge.Service.Repository.Build.V1;
 using RandomFriendlyNameGenerator;
 
 namespace Buildforge.Service.Service;
@@ -46,7 +47,7 @@ public class JobBridgeService(IJobProvider jobProvider, BuildRepository buildRep
 
             if (build is null)
             {
-                var v1 = new Domain.Build.V1.Build()
+                var v1 = new Repository.Build.V1.Build()
                 {
                     ReadAt = now,
                     Branch = job.Branch,
@@ -66,7 +67,7 @@ public class JobBridgeService(IJobProvider jobProvider, BuildRepository buildRep
             {
                 build.ReadAt = now;
 
-                if (build is Domain.Build.V1.Build v1)
+                if (build is Repository.Build.V1.Build v1)
                 {
                     v1.Status = FromJob(job);
 
