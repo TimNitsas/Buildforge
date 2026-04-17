@@ -1,6 +1,4 @@
-﻿using Buildforge.Service.Domain.Build.V1;
-using Buildforge.Service.Provider.Job;
-using RandomFriendlyNameGenerator;
+﻿using RandomFriendlyNameGenerator;
 
 namespace Buildforge.Service.Provider.Job.Simulation;
 
@@ -79,7 +77,8 @@ public sealed class JobProviderSimulatorItem
             {
                 Job.Status = new JobStatusActive()
                 {
-                    StartTime = Inception
+                    StartTime = Inception,
+                    EstimatedTimeToCompletion = TimeToCompletion
                 };
             }
         }
