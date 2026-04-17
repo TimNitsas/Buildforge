@@ -8,7 +8,7 @@ public sealed class BuildContribution
 
     public required string Description { get; init; }
 
-    public static IEnumerable<BuildContribution> FromDomain(Domain.Build.V1.Build item)
+    public static IEnumerable<BuildContribution> FromDomain(Repository.Build.V1.Build item)
     {
         foreach (var contribution in item.Contributions)
         {
