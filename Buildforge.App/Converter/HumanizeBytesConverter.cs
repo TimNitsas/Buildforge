@@ -10,6 +10,10 @@ public sealed class HumanizeBytesConverter : IValueConverter
         {
             return dt.Bytes().Humanize();
         }
+        else if (value is int @int)
+        {
+            return @int.Bytes().Humanize();
+        }
 
         return value;
     }
