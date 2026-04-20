@@ -1,4 +1,5 @@
 ﻿using Buildforge.Service.Repository.Contribution.V1;
+using Npgsql;
 
 namespace Buildforge.Service.Repository.Contribution;
 
