@@ -23,22 +23,24 @@ public partial class MockBuildforgeClient : IBuildClient
 
         for (int i = 0; i < 100; i++)
         {
+            var id = $"custom-build-{Random.Next(100_000, 1_000_000)}";
+
             buildResult.Builds.Add(new Build()
             {
-                Id = $"custom-build-{Random.Next(100_000, 1_000_000)}",
+                Id = id,
                 Name = NameGenerator.Identifiers.Get(),
                 Status = BuildStatus[Random.Next(BuildStatus.Count)](),
                 Target = Targets[Random.Next(Targets.Count)],
                 Contributions = [.. GetContributions()],
                 Platform = Platforms[Random.Next(Platforms.Count)],
-                Crashes = [.. GetCrashes()]
+                Crashes = [.. GetCrashes(id)]
             });
         }
 
         return buildResult;
     }
 
-    private static IEnumerable<BuildCrash> GetCrashes()
+    private static IEnumerable<BuildCrash> GetCrashes(string buildId)
     {
         var faker = new Faker();
 
@@ -46,6 +48,7 @@ public partial class MockBuildforgeClient : IBuildClient
         {
             yield return new BuildCrash()
             {
+                BuildId = buildId,
                 User = faker.Name.FullName(),
                 Date = DateTime.Now.AddDays(-Random.Next(1, 5)),
                 PlayTime = TimeSpan.FromMinutes(Random.Next(1, 60))
@@ -121,75 +124,5 @@ public partial class MockBuildforgeClient : IBuildClient
     public IAsyncEnumerable<Build> GetBuildSse(CancellationToken ct)
     {
         throw new NotImplementedException();
-    }
-}
-
-public partial class MockAuthenticationClient : IAuthenticationClient
-{
-    public Task<AuthenticationResult> GetTokenAsync(string? code = null, AuthenticationPlatform? authenticationPlatform = null, CancellationToken cancellationToken = default)
-    {
-        return Task.FromResult(new AuthenticationResult()
-        {
-            Jwt = string.Empty,
-            Username = "fake-user",
-            UtcExpiry = DateTime.UtcNow.AddDays(1),
-        });
-    }
-}
-
-public partial class MockEventClient : IEventClient
-{
-    public Task<ICollection<Event>> SubscribeAsync(CancellationToken cancellationToken = default)
-    {
-        return Task.FromResult<ICollection<Event>>([]);
-    }
-
-    public Task SubscribeSseAsync(CancellationToken cancellationToken = default)
-    {
-        return Task.CompletedTask;
-    }
-
-    public async IAsyncEnumerable<Event> SubscribeSseImpl([EnumeratorCancellation] CancellationToken ct)
-    {
-        await Task.Yield();
-
-        yield break;
-    }
-}
-
-public partial class MockContributionClient : IContributionClient
-{
-    public Task<ContributionResult> GetContributionsAsync(int? skip = null, CancellationToken cancellationToken = default)
-    {
-        return Task.FromResult(GetMockData());
-    }
-
-    public static ContributionResult GetMockData()
-    {
-        var result = new ContributionResult();
-
-        var faker = new Faker();
-
-        var random = new Random(42);
-
-        for (int i = 0; i < 100; i++)
-        {
-            var files = Enumerable.Range(1, random.Next(1, 20)).Select(i => new ContributionFile()
-            {
-                Path = "some_path",
-                Size = i * 1024
-            });
-
-            result.Contributions.Add(new Client.V1.Contribution()
-            {
-                User = NameGenerator.PersonNames.Get(),
-                Id = (i * i + i).ToString(),
-                Description = faker.Lorem.Sentences(3),
-                CommitDate = DateTime.Now.AddMinutes(-random.Next(1, 60 * 4)),
-                Files = [.. files]
-            });
-        }
-
-        return result;
     }
 }
