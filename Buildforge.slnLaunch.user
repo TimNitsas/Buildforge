@@ -1,6 +1,6 @@
 [
   {
-    "Name": "App & Service",
+    "Name": "App / Service",
     "Projects": [
       {
         "Path": "Buildforge.App\\Buildforge.App.csproj",
