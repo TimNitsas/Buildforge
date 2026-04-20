@@ -4,5 +4,5 @@ public sealed class ContributionFile
 {
     public required string Path { get; set; }
 
-    public required byte Size { get; set; }
+    public required long? Size { get; set; }
 }
