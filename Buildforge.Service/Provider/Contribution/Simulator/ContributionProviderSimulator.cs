@@ -1,6 +1,6 @@
 ﻿using Bogus;
 
-namespace Buildforge.Service.Provider.Contribution;
+namespace Buildforge.Service.Provider.Contribution.Simulator;
 
 public sealed class ContributionProviderSimulator : IContributionProvider
 {
@@ -13,7 +13,7 @@ public sealed class ContributionProviderSimulator : IContributionProvider
         Simulate();
     }
 
-    public async IAsyncEnumerable<Contribution> GetContributions([EnumeratorCancellation] CancellationToken ct)
+    public async IAsyncEnumerable<Contribution> GetContributions(object? startAtKey, [EnumeratorCancellation] CancellationToken ct)
     {
         try
         {
@@ -46,7 +46,9 @@ public sealed class ContributionProviderSimulator : IContributionProvider
                     {
                         User = faker.Name.FullName(),
                         Description = faker.Lorem.Sentences(2),
-                        Id = $"{Contributions.Count}"
+                        Id = $"{Contributions.Count}",
+                        CommitDate = DateTime.UtcNow,
+                        Files = new List<ContributionFile>()
                     });
 
                     await Task.Delay(1_000);
