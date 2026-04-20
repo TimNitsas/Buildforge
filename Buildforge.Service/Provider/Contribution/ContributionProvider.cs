@@ -1,14 +1,14 @@
 ﻿namespace Buildforge.Service.Provider.Contribution;
 
-public interface IContributionProvider
+public sealed class Contribution
 {
-    IAsyncEnumerable<Contribution> GetContributions(CancellationToken ct);
-}
+    public required string Id { get; init; }
 
-public sealed class ContributionProvider : IContributionProvider
-{
-    public IAsyncEnumerable<Contribution> GetContributions(CancellationToken ct)
-    {
-        throw new NotImplementedException();
-    }
+    public required string User { get; init; }
+
+    public required string Description { get; init; }
+
+    public required List<ContributionFile> Files { get; init; }
+
+    public required DateTime CommitDate { get; init; }
 }
