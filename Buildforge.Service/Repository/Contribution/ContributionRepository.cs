@@ -2,7 +2,7 @@
 
 namespace Buildforge.Service.Repository.Contribution;
 
-public class ContributionRepository
+public class ContributionRepository(Database.Database database)
 {
     internal async IAsyncEnumerable<Contribution> GetContributions([EnumeratorCancellation] CancellationToken ct)
     {
