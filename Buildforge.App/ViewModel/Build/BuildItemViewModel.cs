@@ -34,6 +34,11 @@ public partial class BuildItemViewModel : ObservableObject, IRecipient<Event.Bui
     [ObservableProperty]
     private double? progressValue;
 
+    [ObservableProperty]
+    private TimeSpan? meanTimeToCrash;
+
+    public List<Client.V1.BuildCrash> Crashes { get; } = new();
+
     public ObservableCollection<BuildItemContributionViewModel> Contributions { get; }
 
     public ICommand DownloadCommand { get; }
@@ -73,16 +78,30 @@ public partial class BuildItemViewModel : ObservableObject, IRecipient<Event.Bui
             BuildStatusSuccess s => s.Bytes,
             _ => null
         };
+
+        foreach (var crash in build.Crashes)
+        {
+            HandleCrash(crash);
+        }
     }
 
     public void Receive(Event.BuildCrashedEvent message)
     {
-        if (!message.Inner.BuildId.Equals(Id))
+        HandleCrash(message.Inner);
+    }
+
+    private void HandleCrash(Client.V1.BuildCrash buildCrash)
+    {
+        if (!buildCrash.BuildId.Equals(Id))
         {
             return;
         }
 
-        CrashCount++;
+        Crashes.Add(buildCrash);
+
+        CrashCount = Crashes.Count;
+
+        MeanTimeToCrash = TimeSpan.FromSeconds(Crashes.Average(c => c.PlayTime.TotalSeconds));
     }
 
     public void Receive(Event.BuildChangedEvent message)
