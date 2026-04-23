@@ -1,6 +1,4 @@
-﻿using Humanizer;
-
-namespace Buildforge.App.ViewModel.Contribution;
+﻿namespace Buildforge.App.ViewModel.Contribution;
 
 public sealed partial class ContributionItemViewModel : ObservableObject
 {
@@ -20,7 +18,7 @@ public sealed partial class ContributionItemViewModel : ObservableObject
     private int fileCount;
 
     [ObservableProperty]
-    private int fileSize;
+    private long fileSize;
 
     public ContributionItemViewModel(Client.V1.Contribution item)
     {
