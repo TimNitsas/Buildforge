@@ -1,6 +1,4 @@
-﻿using System.Windows.Input;
-
-namespace Buildforge.App.Core.Command.Shared;
+﻿namespace Buildforge.App.Core.Command.Shared;
 
 public abstract class SharedCommand : ICommand
 {
