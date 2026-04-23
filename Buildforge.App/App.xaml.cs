@@ -32,7 +32,7 @@ public partial class App : Application
 
     static App()
     {
-        bool useMock = false;
+        bool useMock = Environment.GetCommandLineArgs().Any(a => a.Equals("--useMock", StringComparison.OrdinalIgnoreCase));
 
         Dispatcher.CurrentDispatcher.ShutdownFinished += (s, e) =>
         {
