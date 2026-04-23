@@ -19,7 +19,7 @@ public sealed class Contribution
             var files = v1.Files.Select(f => new V1.Model.ContributionFile
             {
                 Path = f.Path,
-                Size = f.Size
+                Size = f.Size ?? 0
             });
 
             return new Contribution()
@@ -28,7 +28,7 @@ public sealed class Contribution
                 Id = v1.Id,
                 User = v1.User,
                 CommitDate = v1.CommitDate,
-                Files = files.ToList()
+                Files = [.. files]
             };
         }
 
