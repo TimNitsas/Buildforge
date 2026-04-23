@@ -1454,7 +1454,7 @@ namespace Buildforge.Client.V1
         public string Path { get; set; } = default!;
 
         [Newtonsoft.Json.JsonProperty("size", Required = Newtonsoft.Json.Required.Always)]
-        public int Size { get; set; } = default!;
+        public long Size { get; set; } = default!;
 
     }
 
