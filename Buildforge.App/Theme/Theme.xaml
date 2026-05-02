@@ -6,6 +6,7 @@
     <SolidColorBrush x:Key="Red" Color="Red" />
     <SolidColorBrush x:Key="Blue" Color="CornflowerBlue" />
     <SolidColorBrush x:Key="Green" Color="ForestGreen" />
+    <SolidColorBrush x:Key="Orange" Color="DarkOrange" />
     <SolidColorBrush x:Key="Gray" Color="SlateGray" />
 
     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#737373" />
