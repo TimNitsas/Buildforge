@@ -1235,9 +1235,10 @@ namespace Buildforge.Client.V1
     }
 
     [Newtonsoft.Json.JsonConverter(typeof(JsonInheritanceConverter), "discriminator")]
-    [JsonInheritanceAttribute("BuildCreatedEvent", typeof(BuildCreatedEvent))]
-    [JsonInheritanceAttribute("BuildCrashEvent", typeof(BuildCrashEvent))]
-    [JsonInheritanceAttribute("BuildChangedEvent", typeof(BuildChangedEvent))]
+    [JsonInheritanceAttribute("build_created", typeof(BuildCreatedEvent))]
+    [JsonInheritanceAttribute("build_crashed", typeof(BuildCrashEvent))]
+    [JsonInheritanceAttribute("build_changed", typeof(BuildChangedEvent))]
+    [JsonInheritanceAttribute("contribution_created", typeof(ContributionCreatedEvent))]
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
     public abstract partial class Event
     {
@@ -1410,12 +1411,12 @@ namespace Buildforge.Client.V1
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class ContributionResult
+    public partial class ContributionCreatedEvent : Event
     {
 
-        [Newtonsoft.Json.JsonProperty("contributions", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonProperty("data", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required]
-        public System.Collections.Generic.ICollection<Contribution> Contributions { get; set; } = new System.Collections.ObjectModel.Collection<Contribution>();
+        public Contribution Data { get; set; } = new Contribution();
 
     }
 
@@ -1443,6 +1444,10 @@ namespace Buildforge.Client.V1
         [System.ComponentModel.DataAnnotations.Required]
         public System.Collections.Generic.ICollection<ContributionFile> Files { get; set; } = new System.Collections.ObjectModel.Collection<ContributionFile>();
 
+        [Newtonsoft.Json.JsonProperty("builds", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required]
+        public System.Collections.Generic.ICollection<ContributionBuild> Builds { get; set; } = new System.Collections.ObjectModel.Collection<ContributionBuild>();
+
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
@@ -1455,6 +1460,34 @@ namespace Buildforge.Client.V1
 
         [Newtonsoft.Json.JsonProperty("size", Required = Newtonsoft.Json.Required.Always)]
         public long Size { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class ContributionBuild
+    {
+
+        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required]
+        public string Id { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("status", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required]
+        public string Status { get; set; } = default!;
+
+        [Newtonsoft.Json.JsonProperty("url", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required]
+        public string Url { get; set; } = default!;
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.6.3.0 (NJsonSchema v11.5.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class ContributionResult
+    {
+
+        [Newtonsoft.Json.JsonProperty("contributions", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required]
+        public System.Collections.Generic.ICollection<Contribution> Contributions { get; set; } = new System.Collections.ObjectModel.Collection<Contribution>();
 
     }
 
