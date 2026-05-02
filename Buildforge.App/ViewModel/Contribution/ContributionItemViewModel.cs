@@ -20,6 +20,10 @@ public sealed partial class ContributionItemViewModel : ObservableObject
     [ObservableProperty]
     private long fileSize;
 
+    public ObservableCollection<ContributionItemBuildViewModel> Builds { get; } = [];
+
+    public string Key => Id;
+
     public ContributionItemViewModel(Client.V1.Contribution item)
     {
         User = item.User;
@@ -33,5 +37,10 @@ public sealed partial class ContributionItemViewModel : ObservableObject
         FileCount = item.Files.Count;
 
         FileSize = item.Files.Sum(f => f.Size);
+
+        foreach (var build in item.Builds)
+        {
+            Builds.Add(new ContributionItemBuildViewModel(build));
+        }
     }
 }
