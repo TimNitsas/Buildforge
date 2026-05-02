@@ -26,13 +26,21 @@ public partial class MockContributionClient : IContributionClient
                 Size = i * 1024
             });
 
+            var builds = Enumerable.Range(1, random.Next(1, 5)).Select(x => new ContributionBuild()
+            {
+                Id = (3 * i * x).ToString(),
+                Status = "Building",
+                Url = "https://build.system.url/?build_id=id"
+            });
+
             result.Contributions.Add(new Client.V1.Contribution()
             {
                 User = NameGenerator.PersonNames.Get(),
                 Id = (i * i + i).ToString(),
                 Description = faker.Lorem.Sentences(3),
                 CommitDate = DateTime.Now.AddMinutes(-random.Next(1, 60 * 4)),
-                Files = [.. files]
+                Files = [.. files],
+                Builds = [.. builds]
             });
         }
 
