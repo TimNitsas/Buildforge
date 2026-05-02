@@ -181,9 +181,10 @@
         "discriminator": {
           "propertyName": "discriminator",
           "mapping": {
-            "BuildCreatedEvent": "#/components/schemas/BuildCreatedEvent",
-            "BuildCrashEvent": "#/components/schemas/BuildCrashEvent",
-            "BuildChangedEvent": "#/components/schemas/BuildChangedEvent"
+            "build_created": "#/components/schemas/BuildCreatedEvent",
+            "build_crashed": "#/components/schemas/BuildCrashEvent",
+            "build_changed": "#/components/schemas/BuildChangedEvent",
+            "contribution_created": "#/components/schemas/ContributionCreatedEvent"
           }
         },
         "x-abstract": true,
@@ -465,20 +466,24 @@
           }
         ]
       },
-      "ContributionResult": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "contributions"
-        ],
-        "properties": {
-          "contributions": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Contribution"
+      "ContributionCreatedEvent": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Event"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/Contribution"
+              }
             }
           }
-        }
+        ]
       },
       "Contribution": {
         "type": "object",
@@ -488,7 +493,8 @@
           "commitDate",
           "user",
           "description",
-          "files"
+          "files",
+          "builds"
         ],
         "properties": {
           "id": {
@@ -512,6 +518,12 @@
             "items": {
               "$ref": "#/components/schemas/ContributionFile"
             }
+          },
+          "builds": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ContributionBuild"
+            }
           }
         }
       },
@@ -530,6 +542,44 @@
           "size": {
             "type": "integer",
             "format": "int64"
+          }
+        }
+      },
+      "ContributionBuild": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "status",
+          "url"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "type": "string",
+            "minLength": 1
+          },
+          "url": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "ContributionResult": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "contributions"
+        ],
+        "properties": {
+          "contributions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Contribution"
+            }
           }
         }
       },
