@@ -125,10 +125,22 @@
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
-            <DataGridTemplateColumn Header="Crash Count">
+            <DataGridTemplateColumn Header="Crash">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding CrashCount}" />
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Padding="0,0,4,0" Text="{Binding MeanTimeToCrash, Converter={StaticResource HumanizeTimeSpanConverter}}" />
+                            <TextBlock Foreground="{StaticResource Gray}" Text="{Binding CrashCount, StringFormat={}({0})}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Activity">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <Grid Visibility="{Binding ProgressValue, Converter={StaticResource NullVisibilityConverter}}">
+                            <ctrl:BuildforgeProgressBar Height="18" Margin="2" />
+                        </Grid>
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
