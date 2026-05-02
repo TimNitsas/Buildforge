@@ -12,3 +12,16 @@ services:
     restart: unless-stopped
     ports:
       - 8080:8080
+  perforce:
+    build: 
+      context: .
+      dockerfile: Perforce.Dockerfile
+    restart: unless-stopped
+    environment:
+      P4PORT: 1666
+      P4ROOT: /perforce
+      P4NAME: buildforge
+      SUPERUSER_LOGIN_NAME: admin
+      SUPERUSER_PASSWORD: Y6DPjFvD7gIndgwlQdGj58duk6QSzx85
+    ports:
+      - 1666:1666
