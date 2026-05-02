@@ -4,16 +4,151 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:c="clr-namespace:Buildforge.App.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:Buildforge.App.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:Buildforge.App.ViewModel.Contribution"
+    xmlns:wpf="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
+    d:DataContext="{d:DesignInstance Type=vm:ContributionViewModelDesignTime,
+                                     IsDesignTimeCreatable=True}"
     d:DesignHeight="450"
     d:DesignWidth="1000"
     mc:Ignorable="d">
-    <Grid />
     <UserControl.Resources>
         <ResourceDictionary>
             <c:HumanizeDateTimeConverter x:Key="HumanizeDateTimeConverter" />
             <c:HumanizeBytesConverter x:Key="HumanizeBytesConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <DataGrid
+        AutoGenerateColumns="False"
+        CanUserAddRows="False"
+        HeadersVisibility="Column"
+        ItemsSource="{Binding Contributions}"
+        SelectionUnit="FullRow">
+        <DataGrid.Columns>
+            <DataGridTemplateColumn Header="User">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal">
+                                <Border
+                                    Width="12"
+                                    Height="12"
+                                    Margin="0,0,4,0"
+                                    Background="Gray"
+                                    CornerRadius="8" />
+                                <TextBlock Text="{Binding User}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Id">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Id}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Status">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Border
+                                Width="12"
+                                Height="12"
+                                Margin="0,0,4,0"
+                                Background="{StaticResource Green}"
+                                CornerRadius="8" />
+                            <TextBlock Text="Status" />
+                        </StackPanel>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Description">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                MaxHeight="16"
+                                Text="{Binding Description}"
+                                TextTrimming="CharacterEllipsis" />
+                        </StackPanel>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Commit Date">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Padding="0,0,4,0" Text="{Binding CommitDate, StringFormat=d}" />
+                            <TextBlock Foreground="DimGray" Text="{Binding CommitDate, StringFormat={}({0}), Converter={StaticResource HumanizeDateTimeConverter}}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Branch">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Main" />
+                        </StackPanel>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Files">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Padding="0,0,4,0" Text="{Binding FileCount, StringFormat={}{0} files}" />
+                            <TextBlock Foreground="DimGray" Text="{Binding FileSize, StringFormat={}({0}), Converter={StaticResource HumanizeBytesConverter}}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="Tags">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Tag1, Tag2" />
+                        </StackPanel>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+        </DataGrid.Columns>
+        <DataGrid.RowDetailsTemplate>
+            <DataTemplate>
+                <ItemsControl ItemsSource="{Binding Builds}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Margin="4" Orientation="Vertical" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Border
+                                    Width="12"
+                                    Height="12"
+                                    Margin="0,0,4,0"
+                                    Background="{StaticResource Orange}"
+                                    CornerRadius="8" />
+                                <TextBlock Margin="0,0,4,0" Text="{Binding Id}" />
+                                <TextBlock Margin="0,0,4,0" Text="{Binding Status}" />
+                                <TextBlock Foreground="{StaticResource Gray}" Text="{Binding Url}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </DataTemplate>
+        </DataGrid.RowDetailsTemplate>
+    </DataGrid>
 </UserControl>
