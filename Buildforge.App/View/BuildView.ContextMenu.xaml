@@ -4,13 +4,117 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mi="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
     xmlns:view="clr-namespace:Buildforge.App.ViewModel.Build">
+    <Style TargetType="mi:MaterialIcon">
+        <Setter Property="Height" Value="12" />
+        <Setter Property="Width" Value="12" />
+        <Setter Property="Foreground" Value="{StaticResource Gray}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
     <ContextMenu x:Key="RowContextMenu">
         <MenuItem Command="{Binding DownloadCommand}">
             <MenuItem.Icon>
-                <mi:MaterialIcon Foreground="{StaticResource Gray}" Kind="Download" />
+                <mi:MaterialIcon Kind="Download" />
             </MenuItem.Icon>
             <MenuItem.Header>
-                Download
+                Download Build
+            </MenuItem.Header>
+        </MenuItem>
+        <MenuItem>
+            <MenuItem.Icon>
+                <mi:MaterialIcon Kind="Launch" />
+            </MenuItem.Icon>
+            <MenuItem.Header>
+                Launch Build
+            </MenuItem.Header>
+        </MenuItem>
+        <MenuItem>
+            <MenuItem.Icon>
+                <mi:MaterialIcon Kind="Launch" />
+            </MenuItem.Icon>
+            <MenuItem.Header>
+                Delete Locally
+            </MenuItem.Header>
+        </MenuItem>
+        <MenuItem Header="Links">
+            <MenuItem.Icon>
+                <mi:MaterialIcon Kind="Link" />
+            </MenuItem.Icon>
+            <MenuItem>
+                <MenuItem.Icon>
+                    <mi:MaterialIcon Kind="ContentCopy" />
+                </MenuItem.Icon>
+                <MenuItem.Header>
+                    Copy Download Link
+                </MenuItem.Header>
+            </MenuItem>
+            <MenuItem>
+                <MenuItem.Icon>
+                    <mi:MaterialIcon Kind="Play" />
+                </MenuItem.Icon>
+                <MenuItem.Header>
+                    Copy Play Link
+                </MenuItem.Header>
+            </MenuItem>
+        </MenuItem>
+        <MenuItem Header="Automation">
+            <MenuItem.Icon>
+                <mi:MaterialIcon Kind="Link" />
+            </MenuItem.Icon>
+            <MenuItem>
+                <MenuItem.Icon>
+                    <mi:MaterialIcon Kind="ContentCopy" />
+                </MenuItem.Icon>
+                <MenuItem.Header>
+                    Queue Auto Download
+                </MenuItem.Header>
+            </MenuItem>
+            <MenuItem>
+                <MenuItem.Icon>
+                    <mi:MaterialIcon Kind="Play" />
+                </MenuItem.Icon>
+                <MenuItem.Header>
+                    Queue Auto Launch
+                </MenuItem.Header>
+            </MenuItem>
+        </MenuItem>
+        <MenuItem>
+            <MenuItem.Icon>
+                <mi:MaterialIcon Kind="ArrowUp" />
+            </MenuItem.Icon>
+            <MenuItem.Header>
+                Stamp Build
+            </MenuItem.Header>
+        </MenuItem>
+        <MenuItem>
+            <MenuItem.Icon>
+                <mi:MaterialIcon Kind="CheckDecagram" />
+            </MenuItem.Icon>
+            <MenuItem.Header>
+                Qa Approve
+            </MenuItem.Header>
+        </MenuItem>
+        <MenuItem>
+            <MenuItem.Icon>
+                <mi:MaterialIcon Kind="RemoteDesktop" />
+            </MenuItem.Icon>
+            <MenuItem.Header>
+                Remote Install
+            </MenuItem.Header>
+        </MenuItem>
+        <MenuItem>
+            <MenuItem.Icon>
+                <mi:MaterialIcon Kind="Magic" />
+            </MenuItem.Icon>
+            <MenuItem.Header>
+                Request Dev Test
+            </MenuItem.Header>
+        </MenuItem>
+        <MenuItem>
+            <MenuItem.Icon>
+                <mi:MaterialIcon Kind="OpenInBrowser" />
+            </MenuItem.Icon>
+            <MenuItem.Header>
+                Open In Build System
             </MenuItem.Header>
         </MenuItem>
     </ContextMenu>
