@@ -43,6 +43,8 @@ public partial class BuildItemViewModel : ObservableObject, IRecipient<Event.Bui
 
     public ICommand DownloadCommand { get; }
 
+    public string? Key => Id;
+
     public BuildItemViewModel(Client.V1.Build build)
     {
         WeakReferenceMessenger.Default.RegisterAll(this);
