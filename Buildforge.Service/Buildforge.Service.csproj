@@ -14,6 +14,7 @@
 		<PackageReference Include="Npgsql" Version="10.0.2" />
 		<PackageReference Include="Octokit" Version="14.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="10.4.0" />
+		<PackageReference Include="p4api.net" Version="2025.2.287.2434" />
 		<PackageReference Include="RandomFriendlyNameGenerator" Version="1.0.9" />
 		<PackageReference Include="NSwag.AspNetCore" Version="14.7.0" />
 		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.17.0" />
