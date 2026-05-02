@@ -12,14 +12,23 @@ public sealed class Contribution
 
     public required List<ContributionFile> Files { get; set; }
 
+    public required List<ContributionBuild> Builds { get; init; }
+
     public static Contribution FromDomain(Repository.Contribution.Contribution c)
     {
         if (c is Repository.Contribution.V1.Contribution v1)
         {
-            var files = v1.Files.Select(f => new V1.Model.ContributionFile
+            var files = v1.Files.Select(f => new ContributionFile
             {
                 Path = f.Path,
                 Size = f.Size ?? 0
+            });
+
+            var builds = v1.Builds.Select(b => new ContributionBuild()
+            {
+                Id = b.Id,
+                Status = b.Status,
+                Url = b.Url,
             });
 
             return new Contribution()
@@ -28,7 +37,8 @@ public sealed class Contribution
                 Id = v1.Id,
                 User = v1.User,
                 CommitDate = v1.CommitDate,
-                Files = [.. files]
+                Files = [.. files],
+                Builds = [.. builds]
             };
         }
 
