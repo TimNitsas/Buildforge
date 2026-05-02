@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ctrl="clr-namespace:Buildforge.App.Control"
     xmlns:mi="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
     xmlns:view="clr-namespace:Buildforge.App.ViewModel.Build">
     <ResourceDictionary.MergedDictionaries>
@@ -29,8 +30,10 @@
     </DataTemplate>
     <DataTemplate DataType="{x:Type view:BuildItemStatusActiveViewModel}">
         <StackPanel Orientation="Horizontal">
-            <mi:MaterialIcon Foreground="{StaticResource Blue}" Kind="Gear" />
-            <TextBlock Text="Active" />
+            <ctrl:BuildforgeProgressBar
+                Height="18"
+                ProgressText="{Binding CompletionText}"
+                ProgressValue="{Binding CompletionValue}" />
         </StackPanel>
     </DataTemplate>
 </ResourceDictionary>
