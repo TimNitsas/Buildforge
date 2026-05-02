@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Buildforge.App": {
+      "commandName": "Project",
+      "commandLineArgs": "--useMock"
+    }
+  }
+}
