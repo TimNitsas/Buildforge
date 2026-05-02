@@ -1,5 +1,4 @@
-﻿using Bogus;
-using Buildforge.Client.V1;
+﻿using Buildforge.Client.V1;
 
 namespace Buildforge.App.ViewModel.Contribution;
 
