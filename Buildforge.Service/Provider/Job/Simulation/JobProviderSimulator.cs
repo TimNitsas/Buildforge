@@ -1,6 +1,4 @@
-﻿using Buildforge.Service.Provider.Job;
-
-namespace Buildforge.Service.Provider.Job.Simulation;
+﻿namespace Buildforge.Service.Provider.Job.Simulation;
 
 public sealed class JobProviderSimulator : IJobProvider
 {
