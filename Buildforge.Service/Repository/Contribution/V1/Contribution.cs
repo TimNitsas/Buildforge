@@ -9,4 +9,6 @@ public sealed class Contribution : Repository.Contribution.Contribution
     public required DateTime CommitDate { get; set; }
 
     public required List<ContributionFile> Files { get; set; }
+
+    public required List<ContributionBuild> Builds { get; set; }
 }
