@@ -1,12 +1,15 @@
 using Buildforge.Service.Database;
 using Buildforge.Service.Domain.Authenticator;
 using Buildforge.Service.Domain.Authenticator.Github;
+using Buildforge.Service.Domain.Perforce;
 using Buildforge.Service.Provider.Contribution;
+using Buildforge.Service.Provider.Contribution.Perforce;
 using Buildforge.Service.Provider.Crash;
 using Buildforge.Service.Provider.Crash.Simulation;
 using Buildforge.Service.Provider.Job;
 using Buildforge.Service.Provider.Job.Simulation;
 using Buildforge.Service.Repository.Build;
+using Buildforge.Service.Repository.Contribution;
 using Buildforge.Service.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -21,17 +24,13 @@ public partial class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        var authenticatorSection = builder.Configuration.GetSection(nameof(AuthenticatorOptions));
-
-        builder.Services.AddOptionsWithValidateOnStart<AuthenticatorOptions>().Bind(authenticatorSection).ValidateDataAnnotations();
-
-        builder.Services.AddOptionsWithValidateOnStart<DatabaseOptions>().Bind(builder.Configuration.GetSection(nameof(DatabaseOptions))).ValidateDataAnnotations();
+        ConfigureOptions(builder);
 
         builder.Services.AddControllers();
 
         builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(o =>
         {
-            var key = authenticatorSection.Get<AuthenticatorOptions>()!.SymmetricKey;
+            var key = builder.Configuration.GetSection(nameof(AuthenticatorOptions)).Get<AuthenticatorOptions>()!.SymmetricKey;
 
             o.TokenValidationParameters = new TokenValidationParameters
             {
@@ -43,11 +42,11 @@ public partial class Program
 
         RegisterBackgroundServices(builder);
 
-        builder.Services.AddSingleton<BuildRepository>();
+        ConfigureRepositories(builder);
 
         builder.Services.AddSingleton<ICrashProvider, CrashProviderSimulator>();
 
-        builder.Services.AddSingleton<IContributionProvider, ContributionProvider>();
+        builder.Services.AddSingleton<IContributionProvider, PerforceContributionProvider>();
 
         builder.Services.AddSingleton<EventPublisher>();
 
@@ -83,6 +82,22 @@ public partial class Program
         app.UseSwaggerUi();
 
         app.Run();
+    }
+
+    private static void ConfigureRepositories(WebApplicationBuilder builder)
+    {
+        builder.Services.AddSingleton<BuildRepository>();
+
+        builder.Services.AddSingleton<ContributionRepository>();
+    }
+
+    private static void ConfigureOptions(WebApplicationBuilder builder)
+    {
+        builder.Services.AddOptionsWithValidateOnStart<AuthenticatorOptions>().Bind(builder.Configuration.GetSection(nameof(AuthenticatorOptions))).ValidateDataAnnotations();
+
+        builder.Services.AddOptionsWithValidateOnStart<DatabaseOptions>().Bind(builder.Configuration.GetSection(nameof(DatabaseOptions))).ValidateDataAnnotations();
+
+        builder.Services.AddOptionsWithValidateOnStart<PerforceServerOptions>().Bind(builder.Configuration.GetSection(nameof(PerforceServerOptions))).ValidateDataAnnotations();
     }
 
     private static void RegisterBackgroundServices(WebApplicationBuilder builder)
