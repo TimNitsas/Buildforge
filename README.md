@@ -1,4 +1,5 @@
 # Buildforge
+
 A tool to manage video game builds.
 
 - Uses Velopack to install desktop client updates
@@ -8,3 +9,4 @@ A tool to manage video game builds.
 - The backend service issues JWTs to manage authenticated sessions and authorize API access
 - The client application supports a custom URI scheme (buildforge://) for handling command-based interactions via an url
 - The client application can remain minimized in the system tray
+- The backend service has a strong focus on versioning to provide an always-on service with no downtime for migration
