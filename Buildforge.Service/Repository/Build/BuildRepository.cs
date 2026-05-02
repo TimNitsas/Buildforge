@@ -1,4 +1,5 @@
 ﻿using Buildforge.Service.Domain.Event.Model;
+using Buildforge.Service.Repository.Core;
 using Npgsql;
 using NpgsqlTypes;
 
@@ -7,11 +8,6 @@ namespace Buildforge.Service.Repository.Build;
 public sealed class BuildRepository(Database.Database database, EventPublisher eventPublisher)
 {
     private readonly SemaphoreSlim Semaphore = new(1, 1);
-
-    private readonly JsonSerializerOptions JsonSerializerOptions = new()
-    {
-        AllowOutOfOrderMetadataProperties = true
-    };
 
     public async Task Initialize(CancellationToken ct)
     {
@@ -52,7 +48,7 @@ public sealed class BuildRepository(Database.Database database, EventPublisher e
         {
             var json = reader.GetString(0);
 
-            var build = JsonSerializer.Deserialize<Build>(json, JsonSerializerOptions);
+            var build = JsonSerializer.Deserialize<Build>(json, Serialization.JsonSerializerOptions);
 
             if (build != null)
             {
@@ -65,7 +61,7 @@ public sealed class BuildRepository(Database.Database database, EventPublisher e
     {
         using var connection = await database.DataSource.OpenConnectionAsync(ct);
 
-        var json = JsonSerializer.Serialize(build, JsonSerializerOptions);
+        var json = JsonSerializer.Serialize(build, Serialization.JsonSerializerOptions);
 
         const string sql = @"
             INSERT INTO builds (id, data, read_at)
@@ -92,7 +88,7 @@ public sealed class BuildRepository(Database.Database database, EventPublisher e
     {
         using var connection = await database.DataSource.OpenConnectionAsync(ct);
 
-        var json = JsonSerializer.Serialize(build, JsonSerializerOptions);
+        var json = JsonSerializer.Serialize(build, Serialization.JsonSerializerOptions);
 
         const string sql = @"
             UPDATE builds
@@ -137,6 +133,6 @@ public sealed class BuildRepository(Database.Database database, EventPublisher e
 
         var json = reader.GetString(0);
 
-        return JsonSerializer.Deserialize<Build>(json, JsonSerializerOptions);
+        return JsonSerializer.Deserialize<Build>(json, Serialization.JsonSerializerOptions);
     }
 }
