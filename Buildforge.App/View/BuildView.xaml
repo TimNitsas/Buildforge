@@ -26,7 +26,9 @@
                 <ResourceDictionary Source="/Buildforge.App;component/View/BuildView.ContextMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <c:HumanizeDateTimeConverter x:Key="HumanizeDateTimeConverter" />
+            <c:NullVisibilityConverter x:Key="NullVisibilityConverter" />
             <c:HumanizeBytesConverter x:Key="HumanizeBytesConverter" />
+            <c:HumanizeTimeSpanConverter x:Key="HumanizeTimeSpanConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
     <DataGrid
