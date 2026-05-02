@@ -4,6 +4,7 @@
     <File Path=".github/workflows/main.yml" />
     <File Path="docker-compose.yml" />
     <File Path="dotnet-tools.json" />
+    <File Path="Perforce.Dockerfile" />
     <File Path="README.md" />
   </Folder>
   <Project Path="Buildforge.App/Buildforge.App.csproj" />
