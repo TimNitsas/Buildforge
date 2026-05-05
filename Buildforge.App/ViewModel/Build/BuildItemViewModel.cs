@@ -39,7 +39,7 @@ public partial class BuildItemViewModel : ObservableObject, IRecipient<Event.Bui
 
     public List<Client.V1.BuildCrash> Crashes { get; } = new();
 
-    public ObservableCollection<BuildItemContributionViewModel> Contributions { get; }
+    public BuildItemContributionViewModel Contributions { get; }
 
     public ICommand DownloadCommand { get; }
 
@@ -49,7 +49,7 @@ public partial class BuildItemViewModel : ObservableObject, IRecipient<Event.Bui
     {
         WeakReferenceMessenger.Default.RegisterAll(this);
 
-        Contributions = new(build.Contributions.Select(c => new BuildItemContributionViewModel(c)));
+        Contributions = new(build.Contributions);
 
         Name = build.Name;
 
