@@ -29,11 +29,11 @@
         </StackPanel>
     </DataTemplate>
     <DataTemplate DataType="{x:Type view:BuildItemStatusActiveViewModel}">
-        <StackPanel Orientation="Horizontal">
+        <Grid>
             <ctrl:BuildforgeProgressBar
                 Height="18"
                 ProgressText="{Binding CompletionText}"
                 ProgressValue="{Binding CompletionValue}" />
-        </StackPanel>
+        </Grid>
     </DataTemplate>
 </ResourceDictionary>
