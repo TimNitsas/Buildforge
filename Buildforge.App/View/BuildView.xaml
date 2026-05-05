@@ -53,7 +53,7 @@
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
-            <DataGridTemplateColumn Header="Id">
+            <DataGridTemplateColumn MinWidth="140" Header="Id">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -62,7 +62,7 @@
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
-            <DataGridTemplateColumn Header="Target">
+            <DataGridTemplateColumn MinWidth="80" Header="Target">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -71,7 +71,7 @@
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
-            <DataGridTemplateColumn Header="Platform">
+            <DataGridTemplateColumn MinWidth="80" Header="Platform">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -80,14 +80,14 @@
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
-            <DataGridTemplateColumn Header="Start Date">
+            <DataGridTemplateColumn MinWidth="120" Header="Start Date">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Status.StartTime, Converter={StaticResource HumanizeDateTimeConverter}}" />
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
-            <DataGridTemplateColumn Header="Build Status">
+            <DataGridTemplateColumn MinWidth="240" Header="Build Status">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
                         <ContentPresenter Content="{Binding Status}" />
@@ -97,7 +97,7 @@
             <DataGridTemplateColumn Header="Contribution(s)">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
-                        <ItemsControl ItemsSource="{Binding Contributions}">
+                        <ItemsControl ItemsSource="{Binding Contributions.Items}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel Margin="2,0,0,0" Orientation="Horizontal">
@@ -118,14 +118,14 @@
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
-            <DataGridTemplateColumn Header="Size">
+            <DataGridTemplateColumn MinWidth="80" Header="Size">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
                         <ContentPresenter Content="{Binding Bytes, Converter={StaticResource HumanizeBytesConverter}}" />
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
-            <DataGridTemplateColumn Header="Crash">
+            <DataGridTemplateColumn MinWidth="120" Header="Crash">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -145,5 +145,10 @@
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
         </DataGrid.Columns>
+        <DataGrid.RowDetailsTemplate>
+            <DataTemplate>
+                <local:BuildContributionView DataContext="{Binding Contributions}" />
+            </DataTemplate>
+        </DataGrid.RowDetailsTemplate>
     </DataGrid>
 </UserControl>
