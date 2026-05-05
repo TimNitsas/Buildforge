@@ -1,17 +1,14 @@
 ﻿namespace Buildforge.App.ViewModel.Build;
 
-public partial class BuildItemContributionViewModel : ObservableObject
+public class BuildItemContributionViewModel : ObservableObject
 {
-    [ObservableProperty]
-    private string? user;
+    public ObservableCollection<BuildItemContributionItemViewModel> Items { get; } = [];
 
-    [ObservableProperty]
-    private string? id;
-
-    public BuildItemContributionViewModel(Client.V1.BuildContribution buildContribution)
+    public BuildItemContributionViewModel(IEnumerable<Client.V1.BuildContribution> items)
     {
-        User = buildContribution.User;
-
-        Id = buildContribution.Id;
+        foreach (var item in items)
+        {
+            Items.Add(new BuildItemContributionItemViewModel(item));
+        }
     }
 }
