@@ -28,7 +28,10 @@ public partial class AuthenticationView : UserControl
 
         await webView.EnsureCoreWebView2Async();
 
-        await webView.CoreWebView2.Profile.ClearBrowsingDataAsync(CoreWebView2BrowsingDataKinds.AllProfile);
+        if (webView.CoreWebView2 is not null)
+        {
+            await webView.CoreWebView2.Profile.ClearBrowsingDataAsync(CoreWebView2BrowsingDataKinds.AllProfile);
+        }
     }
 
     private void WebViewNavigationStarting(object sender, CoreWebView2NavigationStartingEventArgs e)
