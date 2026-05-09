@@ -35,7 +35,7 @@ public sealed class TokenHandler
 
         return token switch
         {
-            Token.V1 v1 => v1.UtcExpiry <= DateTime.UtcNow.AddMinutes(-5),
+            Token.V1 v1 => v1.UtcExpiry > DateTime.UtcNow.AddMinutes(-5),
             _ => false
         };
     }
