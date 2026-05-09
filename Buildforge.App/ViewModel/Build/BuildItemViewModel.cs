@@ -37,6 +37,9 @@ public partial class BuildItemViewModel : ObservableObject, IRecipient<Event.Bui
     [ObservableProperty]
     private TimeSpan? meanTimeToCrash;
 
+    [ObservableProperty]
+    private string? branch;
+
     public List<Client.V1.BuildCrash> Crashes { get; } = new();
 
     public BuildItemContributionViewModel Contributions { get; }
@@ -58,6 +61,8 @@ public partial class BuildItemViewModel : ObservableObject, IRecipient<Event.Bui
         Platform = build.Platform;
 
         Id = build.Id;
+
+        Branch = build.Branch;
 
         Patch(build);
 
