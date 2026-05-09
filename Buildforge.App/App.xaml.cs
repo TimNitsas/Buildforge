@@ -5,6 +5,7 @@ using Buildforge.App.Messaging;
 using Buildforge.App.ViewModel.Authentication;
 using Buildforge.App.ViewModel.Contribution;
 using Buildforge.App.ViewModel.Main;
+using Buildforge.App.ViewModel.Root;
 using Buildforge.Client.V1;
 using CommunityToolkit.Mvvm.Messaging;
 using Polly;
@@ -42,6 +43,8 @@ public partial class App : Application
         var services = new ServiceCollection();
 
         services.AddSingleton<IMessenger>(WeakReferenceMessenger.Default);
+
+        services.AddSingleton<RootViewModel>();
 
         services.AddSingleton<MainViewModel>();
 
