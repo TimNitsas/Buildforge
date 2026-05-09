@@ -28,6 +28,7 @@ public partial class MockBuildforgeClient : IBuildClient
             buildResult.Builds.Add(new Build()
             {
                 Id = id,
+                Branch = Branches[Random.Next(Branches.Count)],
                 Name = NameGenerator.Identifiers.Get(),
                 Status = BuildStatus[Random.Next(BuildStatus.Count)](),
                 Target = Targets[Random.Next(Targets.Count)],
@@ -70,6 +71,13 @@ public partial class MockBuildforgeClient : IBuildClient
             };
         }
     }
+
+    private static readonly List<string> Branches = new List<string>()
+    {
+        "Main",
+        "Live",
+        "Patch"
+    };
 
     private static readonly List<string> Targets = new List<string>()
     {
