@@ -1,0 +1,32 @@
+﻿<Window
+    x:Class="Buildforge.App.View.RootView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:auth="clr-namespace:Buildforge.App.ViewModel.Authentication"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Buildforge.App.View"
+    xmlns:main="clr-namespace:Buildforge.App.ViewModel.Main"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:v="clr-namespace:Buildforge.App.View"
+    xmlns:vm="clr-namespace:Buildforge.App.ViewModel.Root"
+    Title="Buildforge"
+    Width="1600"
+    Height="900"
+    d:DataContext="{d:DesignInstance Type=vm:RootViewModelDesignTime,
+                                     IsDesignTimeCreatable=True}"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <ResourceDictionary>
+            <DataTemplate DataType="{x:Type auth:AuthenticationViewModel}">
+                <v:AuthenticationView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type main:MainViewModel}">
+                <v:BuildView />
+            </DataTemplate>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <ContentControl Content="{Binding CurrentViewModel}" />
+    </Grid>
+</Window>
