@@ -27,4 +27,12 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
+    <Style x:Key="ContextMenuMaterialIconStyle" TargetType="mi:MaterialIcon">
+        <Setter Property="Height" Value="12" />
+        <Setter Property="Width" Value="12" />
+        <Setter Property="Foreground" Value="{StaticResource Gray}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+
 </ResourceDictionary>
