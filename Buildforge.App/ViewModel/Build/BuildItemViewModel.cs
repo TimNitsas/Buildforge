@@ -40,6 +40,9 @@ public partial class BuildItemViewModel : ObservableObject, IRecipient<Event.Bui
     [ObservableProperty]
     private string? branch;
 
+    [ObservableProperty]
+    private List<string> tags = [];
+
     public List<Client.V1.BuildCrash> Crashes { get; } = new();
 
     public BuildItemContributionViewModel Contributions { get; }
@@ -89,6 +92,14 @@ public partial class BuildItemViewModel : ObservableObject, IRecipient<Event.Bui
         foreach (var crash in build.Crashes)
         {
             HandleCrash(crash);
+        }
+
+        foreach (var item in build.Tags)
+        {
+            if (!Tags.Contains(item))
+            {
+                Tags.Add(item);
+            }
         }
     }
 
