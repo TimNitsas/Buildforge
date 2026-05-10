@@ -29,6 +29,7 @@ public sealed class Contribution
                 Id = b.Id,
                 Status = b.Status,
                 Url = b.Url,
+                Branch = b.Branch,
             });
 
             return new Contribution()
