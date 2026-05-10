@@ -494,7 +494,9 @@
           "user",
           "description",
           "files",
-          "builds"
+          "builds",
+          "tags",
+          "branches"
         ],
         "properties": {
           "id": {
@@ -523,6 +525,18 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ContributionBuild"
+            }
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "branches": {
+            "type": "array",
+            "items": {
+              "type": "string"
             }
           }
         }
