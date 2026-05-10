@@ -20,6 +20,12 @@ public sealed partial class ContributionItemViewModel : ObservableObject
     [ObservableProperty]
     private long fileSize;
 
+    [ObservableProperty]
+    private List<string> tags = new List<string>();
+
+    [ObservableProperty]
+    private List<string> branch = new List<string>();
+
     public ObservableCollection<ContributionItemBuildViewModel> Builds { get; } = [];
 
     public string Key => Id;
@@ -37,6 +43,16 @@ public sealed partial class ContributionItemViewModel : ObservableObject
         FileCount = item.Files.Count;
 
         FileSize = item.Files.Sum(f => f.Size);
+
+        foreach (var tag in item.Tags)
+        {
+            Tags.Add(tag);
+        }
+
+        foreach (var branch in item.Branches)
+        {
+            Branch.Add(branch);
+        }
 
         foreach (var build in item.Builds)
         {
