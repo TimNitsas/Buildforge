@@ -9,8 +9,8 @@
     d:DesignWidth="100"
     mc:Ignorable="d">
     <Border
-        Height="16"
-        Padding="2"
+        MinHeight="16"
+        Padding="2,0,2,0"
         VerticalAlignment="Center"
         d:Background="Green"
         Background="{Binding Color, RelativeSource={RelativeSource AncestorType=UserControl}}"
