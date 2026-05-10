@@ -29,6 +29,7 @@
             <c:NullVisibilityConverter x:Key="NullVisibilityConverter" />
             <c:HumanizeBytesConverter x:Key="HumanizeBytesConverter" />
             <c:HumanizeTimeSpanConverter x:Key="HumanizeTimeSpanConverter" />
+            <c:TagColorConverter x:Key="TagColorConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
     <DataGrid
@@ -141,6 +142,27 @@
                             <TextBlock Padding="0,0,4,0" Text="{Binding MeanTimeToCrash, Converter={StaticResource HumanizeTimeSpanConverter}}" />
                             <TextBlock Foreground="{StaticResource Gray}" Text="{Binding CrashCount, StringFormat={}({0})}" />
                         </StackPanel>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn MinWidth="80" Header="Tags">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <ItemsControl ItemsSource="{Binding Tags}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <ctrl:Badge
+                                        Padding="0,0,4,0"
+                                        Text="{Binding}"
+                                        Color="{Binding Converter={StaticResource TagColorConverter}}" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
