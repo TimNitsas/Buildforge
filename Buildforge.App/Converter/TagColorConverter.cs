@@ -13,11 +13,15 @@ public sealed class TagColorConverter : IValueConverter
 
         var color = tag.ToLower() switch
         {
+            "main" => Color.FromRgb(50, 150, 77),
+            "live" => Color.FromRgb(80, 120, 192),
             "qa approved" => Color.FromRgb(84, 168, 0),
             "approved" => Color.FromRgb(84, 168, 0),
             "buildfix" => Color.FromRgb(87, 168, 0),
+            "build fix" => Color.FromRgb(87, 168, 0),
             "hotfix" => Color.FromRgb(168, 157, 0),
             "custombuild" => Color.FromRgb(0, 84, 168),
+            "validation bypass" => Color.FromRgb(252, 173, 3),
             "rejected" => Color.FromRgb(192, 80, 80),
             "lab" => Color.FromRgb(80, 120, 192),
             _ => Colors.DimGray
