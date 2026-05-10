@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:c="clr-namespace:Buildforge.App.Converter"
+    xmlns:ctrl="clr-namespace:Buildforge.App.Control"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:Buildforge.App.View"
@@ -18,6 +19,7 @@
         <ResourceDictionary>
             <c:HumanizeDateTimeConverter x:Key="HumanizeDateTimeConverter" />
             <c:HumanizeBytesConverter x:Key="HumanizeBytesConverter" />
+            <c:TagColorConverter x:Key="TagColorConverter" />
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Buildforge.App;component/View/ContributionView.ContextMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
@@ -57,7 +59,7 @@
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
-            <DataGridTemplateColumn Header="Id">
+            <DataGridTemplateColumn MinWidth="40" Header="Id">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -66,7 +68,7 @@
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
-            <DataGridTemplateColumn Header="Status">
+            <DataGridTemplateColumn MinWidth="80" Header="Status">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -93,7 +95,7 @@
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
-            <DataGridTemplateColumn Header="Commit Date">
+            <DataGridTemplateColumn MinWidth="140" Header="Commit Date">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -103,16 +105,28 @@
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
-            <DataGridTemplateColumn Header="Branch">
+            <DataGridTemplateColumn MinWidth="80" Header="Branch">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Main" />
-                        </StackPanel>
+                        <ItemsControl ItemsSource="{Binding Branch}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <ctrl:Badge
+                                        Padding="0,0,4,0"
+                                        Text="{Binding}"
+                                        Color="{Binding Converter={StaticResource TagColorConverter}}" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
-            <DataGridTemplateColumn Header="Files">
+            <DataGridTemplateColumn MinWidth="140" Header="Files">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -122,12 +136,31 @@
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
+            <DataGridTemplateColumn MinWidth="80" Header="Team">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="Engine"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
             <DataGridTemplateColumn Header="Tags">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Tag1, Tag2" />
-                        </StackPanel>
+                        <ItemsControl ItemsSource="{Binding Tags}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <ctrl:Badge
+                                        Padding="0,0,4,0"
+                                        Text="{Binding}"
+                                        Color="{Binding Converter={StaticResource TagColorConverter}}" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
