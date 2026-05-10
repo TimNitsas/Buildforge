@@ -6,7 +6,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<UseWPF>true</UseWPF>
 		<EnableWindowsTargeting>true</EnableWindowsTargeting>
-		<Version>0.0.14</Version>
+		<Version>0.0.15</Version>
 		<StartupObject>Buildforge.App.App</StartupObject>
 		<ApplicationIcon>Icon.ico</ApplicationIcon>
 	</PropertyGroup>
