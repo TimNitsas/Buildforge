@@ -26,11 +26,12 @@ public partial class MockContributionClient : IContributionClient
                 Size = i * 1024
             });
 
-            var builds = Enumerable.Range(1, random.Next(1, 5)).Select(x => new ContributionBuild()
+            var builds = Enumerable.Range(1, random.Next(4, 10)).Select(x => new ContributionBuild()
             {
                 Id = (3 * i * x).ToString(),
                 Status = "Building",
-                Url = "https://build.system.url/?build_id=id"
+                Url = "https://build.system.url/?build_id=id",
+                Branch = "Main",
             });
 
             result.Contributions.Add(new Client.V1.Contribution()
