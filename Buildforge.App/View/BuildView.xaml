@@ -40,7 +40,7 @@
         SelectionUnit="FullRow">
         <DataGrid.RowStyle>
             <Style TargetType="DataGridRow">
-                <Setter Property="ContextMenu" Value="{StaticResource RowContextMenu}" />
+                <Setter Property="ContextMenu" Value="{StaticResource BuildViewItemContextMenu}" />
             </Style>
         </DataGrid.RowStyle>
         <DataGrid.Columns>
