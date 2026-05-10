@@ -14,6 +14,7 @@
     Height="900"
     d:DataContext="{d:DesignInstance Type=vm:RootViewModelDesignTime,
                                      IsDesignTimeCreatable=True}"
+    StateChanged="OnStateChanged"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Window.Resources>
@@ -22,7 +23,7 @@
                 <v:AuthenticationView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type main:MainViewModel}">
-                <v:BuildView />
+                <v:MainView />
             </DataTemplate>
         </ResourceDictionary>
     </Window.Resources>
