@@ -5,6 +5,8 @@ namespace Buildforge.Client.V1;
 
 public partial class MockContributionClient : IContributionClient
 {
+    private static readonly Random Random = new Random(42);
+
     public Task<ContributionResult> GetContributionsAsync(int? skip = null, CancellationToken cancellationToken = default)
     {
         return Task.FromResult(GetMockData());
@@ -41,10 +43,35 @@ public partial class MockContributionClient : IContributionClient
                 Description = faker.Lorem.Sentences(3),
                 CommitDate = DateTime.Now.AddMinutes(-random.Next(1, 60 * 4)),
                 Files = [.. files],
-                Builds = [.. builds]
+                Builds = [.. builds],
+                Tags = [.. GetTags()],
+                Branches = [.. GetBranches()]
             });
         }
 
         return result;
+    }
+
+    private static IEnumerable<string> GetTags()
+    {
+        if (Random.NextDouble() < 0.10)
+        {
+            yield return "Validation Bypass";
+        }
+
+        if (Random.NextDouble() < 0.05)
+        {
+            yield return "Build Fix";
+        }
+    }
+
+    private static IEnumerable<string> GetBranches()
+    {
+        yield return "Main";
+
+        if (Random.NextDouble() < 0.05)
+        {
+            yield return "Live";
+        }
     }
 }
