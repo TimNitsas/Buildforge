@@ -34,7 +34,8 @@ public partial class MockBuildforgeClient : IBuildClient
                 Target = Targets[Random.Next(Targets.Count)],
                 Contributions = [.. GetContributions()],
                 Platform = Platforms[Random.Next(Platforms.Count)],
-                Crashes = [.. GetCrashes(id)]
+                Crashes = [.. GetCrashes(id)],
+                Tags = GetTags().ToList()
             });
         }
 
@@ -108,6 +109,26 @@ public partial class MockBuildforgeClient : IBuildClient
             Bytes = 1024 * 1024 * 1024  * (long)Random.Next(20, 30),
         }
     ];
+
+    private static IEnumerable<string> GetTags()
+    {
+        if (Random.NextDouble() < 0.10)
+        {
+            yield return "Qa Approved";
+
+            if (Random.NextDouble() < 0.6)
+            {
+                yield return "Lab";
+            }
+
+            yield break;
+        }
+
+        if (Random.NextDouble() < 0.05)
+        {
+            yield return "Rejected";
+        }
+    }
 
     public Task<ICollection<Build>> SubscribeAsync(CancellationToken cancellationToken)
     {
