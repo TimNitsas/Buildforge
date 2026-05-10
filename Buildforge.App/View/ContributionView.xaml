@@ -18,6 +18,9 @@
         <ResourceDictionary>
             <c:HumanizeDateTimeConverter x:Key="HumanizeDateTimeConverter" />
             <c:HumanizeBytesConverter x:Key="HumanizeBytesConverter" />
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Buildforge.App;component/View/ContributionView.ContextMenu.xaml" />
+            </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
     <i:Interaction.Triggers>
@@ -31,6 +34,11 @@
         HeadersVisibility="Column"
         ItemsSource="{Binding Contributions}"
         SelectionUnit="FullRow">
+        <DataGrid.RowStyle>
+            <Style TargetType="DataGridRow">
+                <Setter Property="ContextMenu" Value="{StaticResource ContributionViewItemContextMenu}" />
+            </Style>
+        </DataGrid.RowStyle>
         <DataGrid.Columns>
             <DataGridTemplateColumn Header="User">
                 <DataGridTemplateColumn.CellTemplate>
