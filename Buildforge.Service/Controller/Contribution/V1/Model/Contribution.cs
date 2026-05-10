@@ -14,6 +14,10 @@ public sealed class Contribution
 
     public required List<ContributionBuild> Builds { get; init; }
 
+    public required List<string> Tags { get; init; }
+
+    public required List<string> Branches { get; init; }
+
     public static Contribution FromDomain(Repository.Contribution.Contribution c)
     {
         if (c is Repository.Contribution.V1.Contribution v1)
@@ -39,7 +43,9 @@ public sealed class Contribution
                 User = v1.User,
                 CommitDate = v1.CommitDate,
                 Files = [.. files],
-                Builds = [.. builds]
+                Builds = [.. builds],
+                Tags = [],
+                Branches = []
             };
         }
 
